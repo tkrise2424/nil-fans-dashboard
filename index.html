@@ -159,15 +159,17 @@ body {
   flex: 1; background: var(--white);
   border-right: 1px solid var(--gray-200);
   padding: 28px 16px 24px;
-  position: relative; text-align: center;
+  text-align: center;
   display: flex; flex-direction: column; align-items: center; gap: 6px;
 }
 .funnel-step:last-child { border-right: none; }
-.funnel-step::after {
-  content: '›'; position: absolute; right: -14px; top: 50%;
-  transform: translateY(-50%); font-size: 1.8rem; color: var(--gray-400); z-index: 2; font-weight: 300;
+.funnel-arrow {
+  display: flex; align-items: center; justify-content: center;
+  background: var(--white); border-top: 1px solid var(--gray-200); border-bottom: 1px solid var(--gray-200);
+  padding: 0 2px; flex-shrink: 0;
+  color: var(--gray-300); font-size: 1.2rem; line-height: 1;
+  margin-top: 0;
 }
-.funnel-step:last-child::after { display: none; }
 .funnel-step-num {
   width: 28px; height: 28px; border-radius: 50%; background: var(--accent);
   color: var(--white); font-size: .72rem; font-weight: 700;
@@ -467,6 +469,7 @@ body {
         <div class="funnel-step-sub">Targeted contacts across 10 lists</div>
         <div class="funnel-step-delta">— Baseline</div>
       </div>
+      <div class="funnel-arrow">›</div>
       <div class="funnel-step">
         <div class="funnel-step-num">2</div>
         <div class="funnel-step-label">Outreach</div>
@@ -474,6 +477,7 @@ body {
         <div class="funnel-step-sub">2,295 emails · 372 LinkedIn requests</div>
         <div class="funnel-step-delta">— Baseline</div>
       </div>
+      <div class="funnel-arrow">›</div>
       <div class="funnel-step">
         <div class="funnel-step-num">3</div>
         <div class="funnel-step-label">Engagement</div>
@@ -481,6 +485,7 @@ body {
         <div class="funnel-step-sub">52 opens · 46 clicks · 64 LI accepts</div>
         <div class="funnel-step-delta">— Baseline</div>
       </div>
+      <div class="funnel-arrow">›</div>
       <div class="funnel-step">
         <div class="funnel-step-num">4</div>
         <div class="funnel-step-label">Conversations</div>
@@ -488,6 +493,7 @@ body {
         <div class="funnel-step-sub">LinkedIn replies · 0 email replies</div>
         <div class="funnel-step-delta">— Baseline</div>
       </div>
+      <div class="funnel-arrow">›</div>
       <div class="funnel-step">
         <div class="funnel-step-num">5</div>
         <div class="funnel-step-label">Meetings</div>
