@@ -15,12 +15,6 @@
   },
   "executive_summary": {
     "headline": "NIL Fans rebooted its outreach engine after a 30-day gap. Two sequences rebuilt from audited lists are now live with 716 total members, while LinkedIn prospecting surged +94% in requests vs. baseline (720 vs 372).",
-    "key_changes": [
-      "Both original email sequences paused and fully rebuilt after compliance & ICP audit on 5/19 - removing 127+ off-ICP contacts and building a master suppression list of 219 previously-sequenced contacts",
-      "New combined Compliance Directors list (367 contacts) replaces original 276-member sequence",
-      "Athletic Directors sequence (440 members, 5.77% open rate) outperforming Compliance Directors (276 members, 3.55%) on email engagement",
-      "LinkedIn: 720 total requests across 2 campaigns (vs baseline 372), 119 accepted (16.5%), 13 replies"
-    ],
     "top_risks": [
       "Apollo universe for Dir of Compliance audience approaching ceiling (~625 contacts)",
       "0 replies and 0 meetings across both email sequences - engagement exists but no conversations converting yet",
@@ -60,7 +54,7 @@
         "unique_opens": 16,
         "open_rate": 3.55,
         "unique_clicks": 23,
-        "click_rate": 5.10,
+        "click_rate": 5.1,
         "replies": 0,
         "reply_rate": 0.0,
         "meetings": 0,
@@ -91,25 +85,86 @@
       "total_ooo": 3,
       "aggregate_ooo_rate": 0.24,
       "total_pipeline_value": 0
-    }
+    },
+    "bookings_disclaimer": "Meetings/bookings are not currently tracked in the system and there are no calendar booking CTAs in the sequences."
   },
   "period_over_period": {
     "email": {
       "baseline_period": "3/15-4/20",
       "current_period": "4/21-5/19",
       "metrics": {
-        "outreach_sent": {"baseline": 2667, "current": 1231, "delta": -1436, "delta_pct": -53.9},
-        "sequence_triggers": {"baseline": 2295, "current": 1231, "delta": -1064, "delta_pct": -46.4},
-        "unique_opens": {"baseline": 52, "current": 61, "delta": 9, "delta_pct": 17.3},
-        "open_rate": {"baseline": 2.27, "current": 4.96, "delta": 2.69, "delta_pct": 118.5},
-        "unique_clicks": {"baseline": 46, "current": 41, "delta": -5, "delta_pct": -10.9},
-        "click_rate": {"baseline": 2.0, "current": 3.33, "delta": 1.33, "delta_pct": 66.5},
-        "replies": {"baseline": 10, "current": 0, "delta": -10, "delta_pct": -100.0},
-        "meetings": {"baseline": 0, "current": 0, "delta": 0, "delta_pct": 0.0},
-        "bounces": {"baseline": 24, "current": 21, "delta": -3, "delta_pct": -12.5},
-        "bounce_rate": {"baseline": 1.05, "current": 1.71, "delta": 0.66, "delta_pct": 62.9},
-        "ooo": {"baseline": 1, "current": 3, "delta": 2, "delta_pct": 200.0},
-        "ooo_rate": {"baseline": 0.04, "current": 0.24, "delta": 0.20, "delta_pct": 500.0}
+        "outreach_sent": {
+          "baseline": 2667,
+          "current": 1231,
+          "delta": -1436,
+          "delta_pct": -53.9
+        },
+        "sequence_triggers": {
+          "baseline": 2295,
+          "current": 1231,
+          "delta": -1064,
+          "delta_pct": -46.4
+        },
+        "unique_opens": {
+          "baseline": 52,
+          "current": 61,
+          "delta": 9,
+          "delta_pct": 17.3
+        },
+        "open_rate": {
+          "baseline": 2.27,
+          "current": 4.96,
+          "delta": 2.69,
+          "delta_pct": 118.5
+        },
+        "unique_clicks": {
+          "baseline": 46,
+          "current": 41,
+          "delta": -5,
+          "delta_pct": -10.9
+        },
+        "click_rate": {
+          "baseline": 2.0,
+          "current": 3.33,
+          "delta": 1.33,
+          "delta_pct": 66.5
+        },
+        "replies": {
+          "baseline": 10,
+          "current": 0,
+          "delta": -10,
+          "delta_pct": -100.0
+        },
+        "meetings": {
+          "baseline": 0,
+          "current": 0,
+          "delta": 0,
+          "delta_pct": 0.0
+        },
+        "bounces": {
+          "baseline": 24,
+          "current": 21,
+          "delta": -3,
+          "delta_pct": -12.5
+        },
+        "bounce_rate": {
+          "baseline": 1.05,
+          "current": 1.71,
+          "delta": 0.66,
+          "delta_pct": 62.9
+        },
+        "ooo": {
+          "baseline": 1,
+          "current": 3,
+          "delta": 2,
+          "delta_pct": 200.0
+        },
+        "ooo_rate": {
+          "baseline": 0.04,
+          "current": 0.24,
+          "delta": 0.2,
+          "delta_pct": 500.0
+        }
       },
       "notes": "Volume lower due to sequences paused/rebuilt 5/19. Open rate improved 2.7pp (118%). 10 replies in baseline dropped to 0 - current sequences in early steps."
     },
@@ -158,10 +213,30 @@
         "total_inmail": 0
       },
       "metrics": {
-        "requests": {"baseline": 372, "current": 720, "delta": 348, "delta_pct": 93.5},
-        "accepted": {"baseline": 64, "current": 119, "delta": 55, "delta_pct": 85.9},
-        "accept_rate": {"baseline": 17.2, "current": 16.5, "delta": -0.7, "delta_pct": -4.1},
-        "replies": {"baseline": 10, "current": 13, "delta": 3, "delta_pct": 30.0}
+        "requests": {
+          "baseline": 372,
+          "current": 720,
+          "delta": 348,
+          "delta_pct": 93.5
+        },
+        "accepted": {
+          "baseline": 64,
+          "current": 119,
+          "delta": 55,
+          "delta_pct": 85.9
+        },
+        "accept_rate": {
+          "baseline": 17.2,
+          "current": 16.5,
+          "delta": -0.7,
+          "delta_pct": -4.1
+        },
+        "replies": {
+          "baseline": 10,
+          "current": 13,
+          "delta": 3,
+          "delta_pct": 30.0
+        }
       },
       "notes": "LinkedIn ramped significantly - Rounds 2 AD campaign (launched 5/2) drove 623 of 720 current-period requests. Accept rate dipped slightly (16.5% vs 17.2%) but replies up 3 (10 to 13). Compliance campaign has best reply rate at 14.3%."
     }
@@ -201,5 +276,49 @@
     "current_contacts_in_sequences": 716,
     "apollo_universe_estimated": 625,
     "universe_status": "Approaching ceiling - net-new contacts will require audience expansion or re-engagement of suppressed list"
-  }
+  },
+  "next_steps": [
+    {
+      "priority": "high",
+      "label": "High Priority \u2014 This Period",
+      "description": "Audit the Athletic Directors sequence \u2014 same cleanup as Compliance Directors (remove off-target contacts, build suppression list, verify emails, relaunch)"
+    },
+    {
+      "priority": "medium",
+      "label": "Medium Priority",
+      "description": "Decide whether to launch the Division II & III Athlete Activation sequence or retire it \u2014 currently inactive with no activity"
+    },
+    {
+      "priority": "medium",
+      "label": "Medium Priority",
+      "description": "Expand the Compliance Directors audience \u2014 explore adding Title IX Coordinators and Athletic Compliance Officers to keep the pipeline growing"
+    },
+    {
+      "priority": "monitor",
+      "label": "Monitor",
+      "description": "Watch the new Compliance Directors v3 sequence for deliverability \u2014 we expect better results than the original 53% load failure. Review at next report."
+    }
+  ],
+  "performance_insights": [
+    {
+      "number": 1,
+      "title": "Email engagement has improved significantly",
+      "body": "The percentage of people opening our emails doubled \u2014 from 2.27% in the first period to 4.96% now. Clicks also improved (2.0% to 3.33%). The Athletic Directors sequence leads with a 5.77% open rate."
+    },
+    {
+      "number": 2,
+      "title": "We audited the audience to ensure fit with the message",
+      "body": "This cleanup started on May 19th \u2014 the same day this report was generated. The change is already made, but we won't see the improvement until the new sequence has run for a few weeks. We'll track this closely in the next report."
+    },
+    {
+      "number": 3,
+      "title": "LinkedIn outreach is picking up real traction",
+      "body": "Across two campaigns, we've connected with 119 people and received 13 responses. The Compliance Directors campaign has the strongest reply rate (14.3%), while the Athletic Directors campaign (launched May 2) is generating high volume with 623 connection requests."
+    },
+    {
+      "number": 4,
+      "title": "We've identified most of the people who match our target audience",
+      "body": "Going forward, we should look at adding similar job titles \u2014 like Title IX Coordinators and Athletic Compliance Officers \u2014 to keep finding new people to reach out to. This keeps the pipeline fresh as our current list naturally shrinks."
+    }
+  ]
 }
