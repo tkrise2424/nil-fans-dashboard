@@ -21,6 +21,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica N
 .badge-baseline{background:rgba(245,158,11,.2);color:var(--gold);border:1.5px solid rgba(245,158,11,.4)}
 .badge-positive{background:var(--green-light);color:#065f46}
 .badge-negative{background:var(--red-light);color:#991b1b}
+.badge-warning{background:var(--gold-light);color:#92400e}
 .header-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
 .report-number{font-size:.8rem;color:rgba(255,255,255,.5);letter-spacing:1px;text-transform:uppercase}
 .confidential{font-size:.75rem;color:rgba(255,255,255,.45);letter-spacing:.5px;text-transform:uppercase}
@@ -46,20 +47,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica N
 .kpi-sub{font-size:.78rem;color:var(--gray-600);margin-bottom:8px}
 .kpi-source{font-size:.68rem;color:var(--gray-400);font-style:italic;margin-bottom:6px}
 .kpi-delta{font-size:.72rem;font-weight:600;padding:4px 10px;border-radius:6px;display:inline-block}
-.funnel-wrapper{display:flex;gap:0;align-items:stretch;overflow-x:auto;padding:0;background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow-sm);border:1px solid var(--gray-200)}
-.funnel-step{flex:1;padding:28px 20px;text-align:center;position:relative;min-width:140px}
-.funnel-step:not(:last-child){border-right:1px solid var(--gray-200)}
-.funnel-step-num{width:32px;height:32px;border-radius:50%;background:var(--accent);color:var(--white);font-weight:700;font-size:.85rem;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
-.funnel-step:nth-child(5) .funnel-step-num{background:var(--gold)}
-.funnel-step:nth-child(7) .funnel-step-num{background:var(--green)}
-.funnel-step:nth-child(9) .funnel-step-num{background:var(--red)}
-.funnel-step-label{font-size:.75rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--gray-400);margin-bottom:4px}
-.funnel-step-value{font-size:1.8rem;font-weight:800;color:var(--brand-dark);line-height:1.2}
-.funnel-step-sub{font-size:.72rem;color:var(--gray-600);margin-top:6px}
-.funnel-step-delta{font-size:.7rem;font-weight:600;margin-top:6px;display:inline-block;padding:3px 8px;border-radius:4px}
-.funnel-step-delta.up{background:var(--green-light);color:#065f46}
-.funnel-step-delta.down{background:var(--red-light);color:#991b1b}
-.funnel-arrow{display:flex;align-items:center;font-size:1.5rem;color:var(--gray-400);padding:0 2px}
+.rate-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:20px}
+.rate-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:20px 24px;border:1px solid var(--gray-200);text-align:center}
+.rate-card-label{font-size:.7rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--gray-400);margin-bottom:6px}
+.rate-card-value{font-size:1.6rem;font-weight:800;color:var(--brand-dark)}
+.rate-card-delta{font-size:.72rem;font-weight:600;margin-top:4px}
+.seq-table{width:100%;border-collapse:collapse;margin-top:8px}
+.seq-table th{text-align:left;padding:12px 14px;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--gray-400);border-bottom:2px solid var(--gray-200);background:var(--gray-50)}
+.seq-table td{text-align:left;padding:14px;font-size:.85rem;border-bottom:1px solid var(--gray-100);color:var(--gray-800)}
+.seq-table tr:last-child td{border-bottom:none}
+.seq-table .click-rate-good{color:#065f46;font-weight:700}
+.seq-table .click-rate-warn{color:#991b1b;font-weight:700}
+.rep-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--accent);margin:20px 0 8px;padding:8px 14px;background:#eff6ff;border-radius:6px;display:inline-block}
 .breakdown-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .breakdown-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:24px;border:1px solid var(--gray-200)}
 .breakdown-card h3{font-size:.95rem;font-weight:700;color:var(--brand-dark);margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--gray-100)}
@@ -86,310 +85,30 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica N
 .insight-num{width:28px;height:28px;border-radius:50%;background:var(--gray-100);color:var(--gray-600);font-size:.75rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
 .insight-text h4{font-size:.9rem;font-weight:700;color:var(--brand-dark);margin-bottom:5px}
 .insight-text p{font-size:.84rem;color:var(--gray-600);line-height:1.6}
-.intent-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.intent-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:18px 20px;border:1px solid var(--gray-200);border-top:3px solid var(--gold)}
-.intent-name{font-size:.88rem;font-weight:700;color:var(--brand-dark);margin-bottom:3px}
-.intent-title{font-size:.75rem;color:var(--gray-600);margin-bottom:10px;line-height:1.4}
-.intent-signals{display:flex;flex-wrap:wrap;gap:5px}
-.signal-tag{font-size:.65rem;font-weight:600;letter-spacing:.4px;text-transform:uppercase;padding:3px 8px;border-radius:999px}
-.signal-open{background:#dbeafe;color:#1d4ed8}
-.signal-click{background:var(--green-light);color:#065f46}
-.signal-multi{background:var(--gold-light);color:#92400e}
-.opt-list{display:flex;flex-direction:column;gap:18px}
-.opt-item{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:22px 26px;border:1px solid var(--gray-200);display:grid;grid-template-columns:36px 1fr;gap:16px;align-items:start}
-.opt-num{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--accent),#7c3aed);color:var(--white);font-size:.85rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.opt-content h4{font-size:.92rem;font-weight:700;color:var(--brand-dark);margin-bottom:10px}
-.opt-chain{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.78rem}
-.opt-trigger{background:#ede9fe;color:#5b21b6;padding:4px 10px;border-radius:6px;font-weight:600}
-.opt-arrow{color:var(--gray-400);font-weight:700}
-.opt-action{background:#dbeafe;color:#1e40af;padding:4px 10px;border-radius:6px;font-weight:600}
-.opt-outcome{background:var(--green-light);color:#065f46;padding:4px 10px;border-radius:6px;font-weight:600}
-.change-banner{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1.5px solid #fcd34d;border-radius:var(--radius-lg);padding:30px 36px;margin-bottom:24px;display:flex;gap:18px;align-items:flex-start}
-.change-banner-icon{font-size:2rem;flex-shrink:0;margin-top:2px}
-.change-banner h3{font-size:1rem;font-weight:700;color:#92400e;margin-bottom:6px}
-.change-banner p{font-size:.88rem;color:#a16207;line-height:1.6}
-.audit-table{width:100%;border-collapse:collapse;margin-top:16px}
-.audit-table td,.audit-table th{text-align:left;padding:10px 14px;font-size:.82rem;border-bottom:1px solid var(--gray-200)}
-.audit-table th{font-weight:700;color:var(--brand-dark);font-size:.7rem;text-transform:uppercase;letter-spacing:.6px;background:var(--gray-50)}
-.audit-table td{color:var(--gray-800)}
+.audit-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:24px;border:1px solid var(--gray-200);max-width:800px}
+.audit-card h3{font-size:.95rem;font-weight:700;color:var(--brand-dark);margin-bottom:12px}
+.audit-card p{font-size:.84rem;color:var(--gray-600);line-height:1.6;margin-bottom:12px}
+.audit-card ul{font-size:.84rem;color:var(--gray-600);line-height:1.8;padding-left:20px}
+.next-steps{display:flex;flex-direction:column;gap:14px;max-width:800px}
+.next-item{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:18px 24px;border:1px solid var(--gray-200);display:flex;gap:14px;align-items:flex-start}
+.next-priority{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:var(--white);flex-shrink:0}
+.next-priority.high{background:var(--red)}
+.next-priority.med{background:var(--gold)}
+.next-priority.low{background:var(--accent)}
+.next-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px}
+.next-label.high{color:#991b1b}
+.next-label.med{color:#92400e}
+.next-label.low{color:#1d4ed8}
+.next-desc{font-size:.84rem;color:var(--gray-600);line-height:1.5}
 .footer{background:var(--brand-dark);color:rgba(255,255,255,.5);text-align:center;padding:32px;font-size:.8rem;line-height:1.8}
 .footer strong{color:var(--white);display:block;font-size:.9rem;margin-bottom:4px}
+@media(max-width:768px){.kpi-grid{grid-template-columns:1fr 1fr}.rate-strip{grid-template-columns:1fr 1fr}.breakdown-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<header class="header">
-<div class="header-inner">
-<div class="header-left">
-<h1>NIL Fans <span>Performance Dashboard</span></h1>
-<p class="period-label">April 21 - May 19, 2026 · 28-day period</p>
-<div class="header-meta">
-<span class="badge badge-gold">Report #002</span>
-<span class="badge badge-blue">v2 · Active Prosp</span>
-<span class="badge badge-baseline">vs Report #001 (3/15-4/20)</span>
-</div>
-</div>
-<div class="header-right">
-<div class="report-number">Report #002</div>
-<div class="confidential">Confidential · MercenaryMarketing.ai</div>
-</div>
-</div>
-</header><div class="cadence-bar">
-<div class="cadence-bar-inner">
-<div class="cadence-block">
-<div class="cadence-label">Next Report</div>
-<div class="cadence-value">Jun 1, 2026<small>Monday · Biweekly cadence</small></div>
-</div>
-<div class="cadence-block">
-<div class="cadence-label">Active Sequences</div>
-<div class="cadence-value">2 of 3<small>1 inactive</small></div>
-</div>
-<div class="cadence-block">
-<div class="cadence-label">Contacts In Motion</div>
-<div class="cadence-value">1,436<small>716 email + 720 LinkedIn</small></div>
-</div>
-<div class="cadence-block cadence-note">
-<div class="cadence-label">⚠ Status</div>
-<div class="cadence-value">Both sequences rebuilt<small>Compliance audit applied 5/19</small></div>
-</div>
-</div>
-</div><main class="main">
-
-<section class="section">
-<h2 class="section-title"><span class="icon">📊</span> Executive Summary</h2>
-<div class="change-banner">
-<div class="change-banner-icon">🔄</div>
-<div>
-<h3>Both original sequences paused and fully rebuilt after a compliance & ICP audit</h3>
-<p>127+ off-ICP contacts removed, 219-contact suppression list built, fresh combined Compliance Directors list (367 contacts) launched 5/19. LinkedIn prospecting surged +93.5% (720 vs 372 baseline) across 2 campaigns. Email open rate doubled to 4.96% despite lower volume due to rebuild gap. Next: Athletic Directors sequence needs same audit treatment. Apollo universe approaching ceiling (~625 contacts).</p>
-</div>
-</div>
-
-<div class="kpi-grid">
-<div class="kpi-card green">
-<div class="kpi-label">Email Open Rate</div>
-<div class="kpi-value">4.96%</div>
-<div class="kpi-sub">61 unique opens / 1,231 sent</div>
-<div class="kpi-delta" style="background:var(--green-light);color:#065f46;">+2.69pp vs baseline (118% improvement)</div>
-</div>
-<div class="kpi-card">
-<div class="kpi-label">Email Click Rate</div>
-<div class="kpi-value">3.33%</div>
-<div class="kpi-sub">41 unique clicks / 1,231 sent</div>
-<div class="kpi-delta" style="background:var(--green-light);color:#065f46;">+1.33pp vs baseline (66.5% improvement)</div>
-</div>
-<div class="kpi-card gold">
-<div class="kpi-label">LinkedIn Requests</div>
-<div class="kpi-value">720</div>
-<div class="kpi-sub">119 accepted · 16.5% accept rate</div>
-<div class="kpi-delta" style="background:var(--green-light);color:#065f46;">+348 vs baseline (+93.5%)</div>
-</div>
-<div class="kpi-card red">
-<div class="kpi-label">Meetings Booked</div>
-<div class="kpi-value">0</div>
-<div class="kpi-sub">0 email replies · 13 LI replies</div>
-<div class="kpi-delta" style="background:var(--red-light);color:#991b1b;">No conversions this period</div>
-</div>
-</div>
-</section><section class="section">
-<h2 class="section-title"><span class="icon">🔽</span> Funnel Overview</h2>
-<div class="funnel-wrapper">
-<div class="funnel-step">
-<div class="funnel-step-num">1</div>
-<div class="funnel-step-label">Intent</div>
-<div class="funnel-step-value">2,147</div>
-<div class="funnel-step-sub">Contacts across lists</div>
-<div class="funnel-step-delta">Baseline</div>
-</div>
-<div class="funnel-arrow">&#8250;</div>
-<div class="funnel-step">
-<div class="funnel-step-num">2</div>
-<div class="funnel-step-label">Outreach</div>
-<div class="funnel-step-value">1,951</div>
-<div class="funnel-step-sub">1,231 emails · 720 LI req</div>
-<div class="funnel-step-delta down">-716 vs baseline</div>
-</div>
-<div class="funnel-arrow">&#8250;</div>
-<div class="funnel-step">
-<div class="funnel-step-num">3</div>
-<div class="funnel-step-label">Engagement</div>
-<div class="funnel-step-value">221</div>
-<div class="funnel-step-sub">61 opens · 41 clicks · 119 LI accepts</div>
-<div class="funnel-step-delta up">+59 vs baseline</div>
-</div>
-<div class="funnel-arrow">&#8250;</div>
-<div class="funnel-step">
-<div class="funnel-step-num">4</div>
-<div class="funnel-step-label">Conversations</div>
-<div class="funnel-step-value">13</div>
-<div class="funnel-step-sub">13 LinkedIn replies</div>
-<div class="funnel-step-delta up">+3 vs baseline</div>
-</div>
-<div class="funnel-arrow">&#8250;</div>
-<div class="funnel-step">
-<div class="funnel-step-num">5</div>
-<div class="funnel-step-label">Meetings</div>
-<div class="funnel-step-value">0</div>
-<div class="funnel-step-sub">Client-reported</div>
-<div class="funnel-step-delta">--</div>
-</div>
-</div>
-</section><section class="section">
-<h2 class="section-title"><span class="icon">📈</span> Performance Breakdown — Email</h2>
-<div class="breakdown-grid">
-
-<div class="breakdown-card">
-<h3>📧 NIL Fans - Shannon Gray - Athletic Directors</h3>
-<div class="campaign-block blue-bg">
-<div class="metric-row"><span class="metric-name">Members</span><span class="metric-val">440</span><span class="metric-badge badge-baseline-sm">Active</span></div>
-<div class="metric-row"><span class="metric-name">Emails Sent</span><span class="metric-val">780</span><span class="metric-badge badge-positive">+780</span></div>
-<div class="metric-row"><span class="metric-name">Unique Opens</span><span class="metric-val">45</span><span class="metric-badge badge-baseline-sm">5.77%</span></div>
-<div class="metric-row"><span class="metric-name">Unique Clicks</span><span class="metric-val">18</span><span class="metric-badge badge-baseline-sm">2.31%</span></div>
-<div class="metric-row"><span class="metric-name">Replies</span><span class="metric-val">0</span><span class="metric-badge badge-flat">--</span></div>
-<div class="metric-row"><span class="metric-name">Bounces</span><span class="metric-val">17</span><span class="metric-badge badge-baseline-sm">2.18%</span></div>
-<div class="metric-row"><span class="metric-name">OOO</span><span class="metric-val">3</span><span class="metric-badge badge-baseline-sm">0.38%</span></div>
-</div>
-</div>
-
-<div class="breakdown-card">
-<h3>📧 NIL Directors & Compliance — Anna v2</h3>
-<div class="campaign-block green-bg">
-<div class="metric-row"><span class="metric-name">Members</span><span class="metric-val">276</span><span class="metric-badge badge-baseline-sm">Active</span></div>
-<div class="metric-row"><span class="metric-name">Emails Sent</span><span class="metric-val">451</span><span class="metric-badge badge-positive">+451</span></div>
-<div class="metric-row"><span class="metric-name">Unique Opens</span><span class="metric-val">16</span><span class="metric-badge badge-baseline-sm">3.55%</span></div>
-<div class="metric-row"><span class="metric-name">Unique Clicks</span><span class="metric-val">23</span><span class="metric-badge badge-baseline-sm">5.10%</span></div>
-<div class="metric-row"><span class="metric-name">Replies</span><span class="metric-val">0</span><span class="metric-badge badge-flat">--</span></div>
-<div class="metric-row"><span class="metric-name">Bounces</span><span class="metric-val">4</span><span class="metric-badge badge-baseline-sm">0.89%</span></div>
-<div class="metric-row"><span class="metric-name">OOO</span><span class="metric-val">0</span><span class="metric-badge badge-flat">--</span></div>
-</div>
-</div>
-</div>
-
-<div class="breakdown-card" style="margin-top:20px;grid-column:1/-1;max-width:600px;">
-<h3>📊 Email Aggregate</h3>
-<div class="metric-row"><span class="metric-name">Total Sent</span><span class="metric-val">1,231</span><span class="metric-badge badge-negative">-1,436 vs baseline</span></div>
-<div class="metric-row"><span class="metric-name">Open Rate</span><span class="metric-val">4.96%</span><span class="metric-badge badge-positive">+2.69pp</span></div>
-<div class="metric-row"><span class="metric-name">Click Rate</span><span class="metric-val">3.33%</span><span class="metric-badge badge-positive">+1.33pp</span></div>
-<div class="metric-row"><span class="metric-name">Bounce Rate</span><span class="metric-val">1.71%</span><span class="metric-badge badge-negative">+0.66pp</span></div>
-<div class="metric-row"><span class="metric-name">Replies</span><span class="metric-val">0</span><span class="metric-badge badge-negative">-10 vs baseline</span></div>
-</div>
-</section><section class="section">
-<h2 class="section-title"><span class="icon">🔗</span> Performance Breakdown — LinkedIn Prospecting</h2>
-<div class="breakdown-grid">
-
-<div class="breakdown-card">
-<h3>🔷 NIL Directors & Compliance — Shanon Gray</h3>
-<div class="campaign-block blue-bg">
-<div class="campaign-label blue-txt">Launched Apr 2, 2026</div>
-<div class="metric-row"><span class="metric-name">Requests Sent</span><span class="metric-val">97</span><span class="metric-badge badge-positive">+97</span></div>
-<div class="metric-row"><span class="metric-name">Accepted</span><span class="metric-val">24</span><span class="metric-badge badge-baseline-sm">24.7%</span></div>
-<div class="metric-row"><span class="metric-name">Conversations</span><span class="metric-val">24</span><span class="metric-badge badge-flat">--</span></div>
-<div class="metric-row"><span class="metric-name">Replies</span><span class="metric-val">4</span><span class="metric-badge badge-baseline-sm">14.3% reply rate</span></div>
-</div>
-</div>
-
-<div class="breakdown-card">
-<h3>🔷 Rounds 2 — Athletic Directors</h3>
-<div class="campaign-block green-bg">
-<div class="campaign-label green-txt">Launched May 2, 2026</div>
-<div class="metric-row"><span class="metric-name">Requests Sent</span><span class="metric-val">623</span><span class="metric-badge badge-positive">+623</span></div>
-<div class="metric-row"><span class="metric-name">Accepted</span><span class="metric-val">95</span><span class="metric-badge badge-baseline-sm">15.2%</span></div>
-<div class="metric-row"><span class="metric-name">Conversations</span><span class="metric-val">94</span><span class="metric-badge badge-flat">--</span></div>
-<div class="metric-row"><span class="metric-name">Replies</span><span class="metric-val">9</span><span class="metric-badge badge-baseline-sm">9.3% reply rate</span></div>
-</div>
-</div>
-
-<div class="breakdown-card" style="grid-column:1/-1;max-width:600px;">
-<h3>📊 LinkedIn Aggregate</h3>
-<div class="metric-row"><span class="metric-name">Total Requests</span><span class="metric-val">720</span><span class="metric-badge badge-positive">+348 vs baseline (372)</span></div>
-<div class="metric-row"><span class="metric-name">Total Accepted</span><span class="metric-val">119</span><span class="metric-badge badge-positive">+55 vs baseline (64)</span></div>
-<div class="metric-row"><span class="metric-name">Accept Rate</span><span class="metric-val">16.5%</span><span class="metric-badge badge-negative">-0.7pp</span></div>
-<div class="metric-row"><span class="metric-name">Total Replies</span><span class="metric-val">13</span><span class="metric-badge badge-positive">+3 vs baseline (10)</span></div>
-</div>
-</div>
-</section><section class="section">
-<h2 class="section-title"><span class="icon">💡</span> Performance Insights</h2>
-<div class="insight-list">
-
-<div class="insight-item positive">
-<div class="insight-num">1</div>
-<div class="insight-text">
-<h4>Email engagement rates have doubled</h4>
-<p>Open rate jumped from 2.27% to 4.96% (+118%) and click rate from 2.0% to 3.33% (+66.5%). The cleaner, audited lists are showing better engagement quality despite sending to fewer contacts. Athletic Directors (440 members, 5.77% open rate) is the top performer.</p>
-</div>
-</div>
-
-<div class="insight-item warn">
-<div class="insight-num">2</div>
-<div class="insight-text">
-<h4>0 email replies — sequences may be in early steps</h4>
-<p>Current-period sequences were paused and rebuilt. If they restarted from step 1, early emails typically don't generate replies. Monitor for 2-3 weeks. Baseline had 10 replies from matured sequences. LinkedIn is carrying the conversations (13 replies).</p>
-</div>
-</div>
-
-<div class="insight-item info">
-<div class="insight-num">3</div>
-<div class="insight-text">
-<h4>LinkedIn scaling hard — 720 requests across 2 campaigns</h4>
-<p>Rounds 2 Athletic Directors campaign (launched May 2) drove 623 requests in ~2.5 weeks and already has 95 acceptances and 9 replies. The Compliance Directors campaign (97 req, 24.7% accept, 14.3% reply rate) is small but the highest-quality LI campaign by reply rate.</p>
-</div>
-</div>
-
-<div class="insight-item warn">
-<div class="insight-num">4</div>
-<div class="insight-text">
-<h4>Compliance Directors Apollo universe approaching ceiling</h4>
-<p>~625 total contacts available. After the audit removed 127 off-ICP contacts and built a 219-contact suppression list, the net new universe is tight. Consider audience expansion (e.g., Title IX Coordinators, Athletic Compliance Officers at Division II/III schools).</p>
-</div>
-</div>
-
-<div class="insight-item info">
-<div class="insight-num">5</div>
-<div class="insight-text">
-<h4>Athletic Directors sequence pending suppression audit</h4>
-<p>Shanon Gray's Athletic Directors sequence still needs the same ICP/suppression audit that was applied to the Compliance Directors sequence. Expect similar off-ICP removal (finance roles, Title IX-only) and bounce reduction after cleanup.</p>
-</div>
-</div>
-
-</div>
-</section><section class="section">
-<h2 class="section-title"><span class="icon">🔧</span> Sequence Audit — May 19, 2026</h2>
-
-<div class="breakdown-card" style="max-width:800px;">
-<h3>Compliance Directors Sequence — Full Rebuild</h3>
-<table class="audit-table">
-<tr><th>Item</th><th>Detail</th></tr>
-<tr><td>Original Sequence</td><td>MMai — NIL Directors & Compliance — Demo Outreach — Anna v2</td></tr>
-<tr><td>Original List</td><td>416 exported, 276 loaded (53% load failure — 222 stuck errors)</td></tr>
-<tr><td>Issues Found</td><td>127 off-ICP contacts (96 CFO/COO/CRO, 16 Title IX-only, 5 ADA/504, 5 Financial Aid, 3 Research Compliance, 2 other); 25 no verified email; No suppression list</td></tr>
-<tr><td>New Combined List</td><td>367 contacts — 213 audited April export + 180 audited Apollo v2 (24 removed)</td></tr>
-<tr><td>Suppression List</td><td>219 contacts uploaded to Apollo as NILFans_Suppression_Master</td></tr>
-<tr><td>New Sequence</td><td>MMai_NILFans_Anna_Team_NILDirCompliance_Outreach_052026_v3</td></tr>
-<tr><td>Status</td><td><span class="badge badge-positive">Running — launched 5/19/2026</span></td></tr>
-</table>
-</div>
-</section><section class="section">
-<h2 class="section-title"><span class="icon">📝</span> What Changed Since Report #001</h2>
-<div class="breakdown-card">
-<h3>📌 Actions Taken This Period</h3>
-<div class="metric-row"><span class="metric-name">Compliance Directors — Full ICP Audit</span><span class="metric-val">127 removed</span><span class="metric-badge badge-baseline-sm">+ Suppression list</span></div>
-<div class="metric-row"><span class="metric-name">New Combined Compliance List</span><span class="metric-val">367 contacts</span><span class="metric-badge badge-positive">Cleaner ICP fit</span></div>
-<div class="metric-row"><span class="metric-name">Compliance Directors v3 Launched</span><span class="metric-val">5/19</span><span class="metric-badge badge-baseline-sm">Running</span></div>
-<div class="metric-row"><span class="metric-name">LinkedIn Rounds 2 — AD Campaign</span><span class="metric-val">623 req</span><span class="metric-badge badge-positive">Launched 5/2</span></div>
-<div class="metric-row"><span class="metric-name">LinkedIn Compliance Campaign</span><span class="metric-val">97 req</span><span class="metric-badge badge-baseline-sm">Launched 4/2</span></div>
-</div>
-
-<div class="breakdown-card" style="margin-top:16px;">
-<h3>📋 Pending Actions for Next Period</h3>
-<div class="metric-row"><span class="metric-name">Audit Athletic Directors sequence</span><span class="metric-val">⚠ Priority</span><span class="metric-badge" style="background:var(--gold-light);color:#92400e;">Same ICP cleanup needed</span></div>
-<div class="metric-row"><span class="metric-name">Build or retire DII/DIII Athlete Activation</span><span class="metric-val">Decision</span><span class="metric-badge badge-flat">Inactive sequence</span></div>
-<div class="metric-row"><span class="metric-name">Monitor v3 deliverability</span><span class="metric-val">Watch</span><span class="metric-badge badge-flat">Compare vs 53% load failure</span></div>
-<div class="metric-row"><span class="metric-name">Apollo audience expansion</span><span class="metric-val">~625 ceiling</span><span class="metric-badge" style="background:var(--gold-light);color:#92400e;">Approaching limit</span></div>
-</div>
-</section></main>
-<footer class="footer">
-<strong>NIL Fans Performance Dashboard — Report #002 · April 21 – May 19, 2026</strong>
-Prepared by MercenaryMarketing.ai<br>
-🔒 Confidential — For Client Use Only · Next report approx. Jun 1, 2026
-</footer>
+<header class="header"><div class="header-inner"><div class="header-left"><h1>NIL Fans <span>Performance Dashboard</span></h1><p class="period-label">April 21 - May 19, 2026 · 28-day period</p><div class="header-meta"><span class="badge badge-gold">Report #002</span><span class="badge badge-blue">Active Prosp</span><span class="badge badge-baseline">vs Report #001 (3/15-4/20)</span></div></div><div class="header-right"><div class="report-number">NIL FANS · BIWEEKLY DASHBOARD</div><div class="confidential">Confidential — For Client Use Only</div></div></div></header><div class="cadence-bar"><div class="cadence-bar-inner"><div class="cadence-block"><div class="cadence-label">Next Report</div><div class="cadence-value">Jun 1, 2026<small>Monday · 14-day cadence</small></div></div><div class="cadence-block"><div class="cadence-label">Active Sequences</div><div class="cadence-value">2 of 3<small>1 inactive</small></div></div><div class="cadence-block"><div class="cadence-label">Contacts In Motion</div><div class="cadence-value">1,436<small>716 email + 720 LinkedIn</small></div></div><div class="cadence-block cadence-note"><div class="cadence-label">⚠ Status</div><div class="cadence-value">Sequences rebuilt 5/19<small>Compliance audit complete</small></div></div></div></div><main class="main">
+<section class="section"><h2 class="section-title"><span class="icon">📊</span> Email Sequences — Overview</h2><div class="kpi-grid"><div class="kpi-card"><div class="kpi-label">Executions</div><div class="kpi-value">1,231</div><div class="kpi-sub">Across 2 active sequences</div><div class="kpi-delta" style="background:var(--red-light);color:#991b1b;">-1,436 vs baseline</div></div><div class="kpi-card green"><div class="kpi-label">Unique Opens</div><div class="kpi-value">61</div><div class="kpi-sub">Open rate: 4.96%</div><div class="kpi-delta" style="background:var(--green-light);color:#065f46;">+9 vs baseline</div></div><div class="kpi-card"><div class="kpi-label">Unique Clicks</div><div class="kpi-value">41</div><div class="kpi-sub">Click rate: 3.33%</div><div class="kpi-delta" style="background:var(--red-light);color:#991b1b;">-5 vs baseline</div></div><div class="kpi-card red"><div class="kpi-label">Replies</div><div class="kpi-value">0</div><div class="kpi-sub">Meetings booked: 0</div><div class="kpi-delta" style="background:var(--red-light);color:#991b1b;">-10 vs baseline</div></div></div><div class="rate-strip"><div class="rate-card"><div class="rate-card-label">Open Rate</div><div class="rate-card-value" style="color:var(--green);">4.96%</div><div class="rate-card-delta" style="color:var(--green);">+2.69pp vs baseline (2.27%)</div></div><div class="rate-card"><div class="rate-card-label">Click Rate</div><div class="rate-card-value" style="color:var(--accent);">3.33%</div><div class="rate-card-delta" style="color:var(--green);">+1.33pp vs baseline (2.00%)</div></div><div class="rate-card"><div class="rate-card-label">Bounce Rate</div><div class="rate-card-value" style="color:var(--gold);">1.71%</div><div class="rate-card-delta" style="color:var(--red);">+0.66pp vs baseline (1.05%)</div></div><div class="rate-card"><div class="rate-card-label">OOO Rate</div><div class="rate-card-value" style="color:var(--accent);">0.24%</div><div class="rate-card-delta" style="color:var(--red);">+0.20pp vs baseline (0.04%)</div></div></div></section><section class="section"><h2 class="section-title"><span class="icon">📋</span> Active Sequences — Breakdown</h2><div class="rep-label">Shanon Gray</div><table class="seq-table"><thead><tr><th>Sequence</th><th>Members</th><th>Sent</th><th>Opens</th><th>Open Rate</th><th>Clicks</th><th>Click Rate</th><th>Replies</th><th>Bounces</th><th>OOO</th></tr></thead><tbody><tr><td>ICP 4: Athletic Directors</td><td>440</td><td>780</td><td>45</td><td>5.77%</td><td>18</td><td><span class="click-rate-warn">2.31%</span></td><td>0</td><td>17</td><td>3</td></tr></tbody></table><div class="rep-label">Anna</div><table class="seq-table"><thead><tr><th>Sequence</th><th>Members</th><th>Sent</th><th>Opens</th><th>Open Rate</th><th>Clicks</th><th>Click Rate</th><th>Replies</th><th>Bounces</th><th>OOO</th></tr></thead><tbody><tr><td>NIL Directors &amp; Compliance — v2</td><td>276</td><td>451</td><td>16</td><td>3.55%</td><td>23</td><td><span class="click-rate-warn">5.10%</span></td><td>0</td><td>4</td><td>0</td></tr></tbody></table></section><section class="section"><h2 class="section-title"><span class="icon">🔗</span> LinkedIn / Prosp — Overview</h2><div class="kpi-grid"><div class="kpi-card"><div class="kpi-label">Requests Sent</div><div class="kpi-value">720</div><div class="kpi-sub">Across 2 campaigns</div><div class="kpi-delta" style="background:var(--green-light);color:#065f46;">+348 vs baseline</div></div><div class="kpi-card green"><div class="kpi-label">Accepted</div><div class="kpi-value">119</div><div class="kpi-sub">Accept rate: 16.5%</div><div class="kpi-delta" style="background:var(--green-light);color:#065f46;">+55 vs baseline</div></div><div class="kpi-card"><div class="kpi-label">Replies</div><div class="kpi-value">13</div><div class="kpi-sub">11.0% of accepted</div><div class="kpi-delta" style="background:var(--green-light);color:#065f46;">+3 vs baseline</div></div><div class="kpi-card gold"><div class="kpi-label">Campaigns Active</div><div class="kpi-value">2</div><div class="kpi-sub">1 launched Apr 2 · 1 launched May 2</div><div class="kpi-delta" style="background:var(--green-light);color:#065f46;">+2 vs baseline</div></div></div><h3 style="margin-top:32px;margin-bottom:16px;font-size:1rem;color:var(--gray-600);">Per-Campaign Breakdown</h3><div class="breakdown-grid"><div class="breakdown-card"><h3>🔷 NIL Directors &amp; Compliance — Shanon Gray</h3><div class="campaign-block blue-bg"><div class="campaign-label blue-txt">Launched Apr 2, 2026</div><div class="metric-row"><span class="metric-name">Requests Sent</span><span class="metric-val">97</span><span class="metric-badge badge-positive">+97</span></div><div class="metric-row"><span class="metric-name">Accepted</span><span class="metric-val">24</span><span class="metric-badge badge-baseline-sm">24.7% accept rate</span></div><div class="metric-row"><span class="metric-name">Replies</span><span class="metric-val">4</span><span class="metric-badge badge-baseline-sm">14.3% reply rate</span></div></div></div><div class="breakdown-card"><h3>🔷 Rounds 2 — Athletic Directors</h3><div class="campaign-block green-bg"><div class="campaign-label green-txt">Launched May 2, 2026</div><div class="metric-row"><span class="metric-name">Requests Sent</span><span class="metric-val">623</span><span class="metric-badge badge-positive">+623</span></div><div class="metric-row"><span class="metric-name">Accepted</span><span class="metric-val">95</span><span class="metric-badge badge-baseline-sm">15.2% accept rate</span></div><div class="metric-row"><span class="metric-name">Replies</span><span class="metric-val">9</span><span class="metric-badge badge-baseline-sm">9.3% reply rate</span></div></div></div></div></section><section class="section"><h2 class="section-title"><span class="icon">🔧</span> Sequence Audit</h2><div class="audit-card"><h3>Compliance Directors — Cleaned &amp; Relaunched</h3><p>On May 19, we completed a full review of the Compliance Directors contact list to make sure every person we're emailing is the right fit for the message. Here's what we did:</p><ul><li>Removed 127 contacts that weren't a good match for this campaign (finance roles, non-compliance titles)</li><li>Built a suppression list so contacts who've already been through the sequence don't get re-added</li><li>Rebuilt a cleaner list of 367 contacts — better targeting, verified email addresses</li><li>Relaunched the sequence same day as a fresh v3</li></ul><p style="margin-top:12px;color:#065f46;font-weight:600;">Status: Running — Launched May 19, 2026</p></div><div class="audit-card" style="margin-top:16px;"><h3>Pending: Athletic Directors Audit</h3><p>Shanon Gray's Athletic Directors sequence (440 members) is next up for the same review. We expect similar cleanup — removing non-athletic-director titles, building a suppression list, and verifying email quality. This will happen early in the next period.</p></div></section><section class="section"><h2 class="section-title"><span class="icon">💡</span> Key Insights</h2><div class="insight-list"><div class="insight-item positive"><div class="insight-num">1</div><div class="insight-text"><h4>Email engagement has improved significantly</h4><p>The percentage of people opening our emails doubled — from 2.27% in the first period to 4.96% now. Clicks are also up, from 2.0% to 3.33%. The Athletic Directors sequence is leading the way with a 5.77% open rate.</p></div></div><div class="insight-item info"><div class="insight-num">2</div><div class="insight-text"><h4>We completed a full contact list refresh on May 19</h4><p>Since this report was generated the same day we relaunched the cleaned lists, you won't see the impact in these numbers yet. The improvement will show up over the next few weeks as the new sequences run their course. We'll track this closely in the next report.</p></div></div><div class="insight-item positive"><div class="insight-num">3</div><div class="insight-text"><h4>LinkedIn outreach is picking up real traction</h4><p>Across two campaigns, we've connected with 119 people and received 13 responses. The Compliance Directors LinkedIn campaign has the strongest reply rate (14.3%), while the Athletic Directors campaign (launched May 2) is generating high volume with 623 connection requests so far.</p></div></div><div class="insight-item warn"><div class="insight-num">4</div><div class="insight-text"><h4>We're approaching the limit of available contacts for our Compliance Directors list</h4><p>There are roughly 625 Directors of Compliance in our target audience on the platforms we use. After cleaning our list, we have 367 active contacts. To keep growing, we may need to expand into related roles — like Title IX Coordinators or Athletic Compliance Officers — or circle back to contacts who didn't engage the first time.</p></div></div></div></section><section class="section"><h2 class="section-title"><span class="icon">📌</span> Next Steps</h2><div class="next-steps"><div class="next-item"><div class="next-priority high">1</div><div><div class="next-label high">High Priority — This Period</div><div class="next-desc">Audit the Athletic Directors sequence — same cleanup as Compliance Directors (remove off-target contacts, build suppression list, verify emails, relaunch)</div></div></div><div class="next-item"><div class="next-priority med">2</div><div><div class="next-label med">Medium Priority</div><div class="next-desc">Decide whether to launch the Division II &amp; III Athlete Activation sequence or retire it — it's currently inactive and not generating results</div></div></div><div class="next-item"><div class="next-priority med">3</div><div><div class="next-label med">Medium Priority</div><div class="next-desc">Expand the Compliance Directors audience — explore adding Title IX Coordinators and Athletic Compliance Officers to keep the pipeline growing as we approach the ceiling on our current audience</div></div></div><div class="next-item"><div class="next-priority low">4</div><div><div class="next-label low">Monitor</div><div class="next-desc">Watch the new Compliance Directors v3 sequence for deliverability — we should see better results than the original 53% load failure rate. Check at next report.</div></div></div></div></section>
+</main>
+<footer class="footer"><strong>NIL Fans Performance Dashboard — Report #002 · April 21 – May 19, 2026</strong>Prepared by MercenaryMarketing.ai · Dashboard: nil-fans.mercenarymarketing.ai<br>🔒 Confidential — For Client Use Only · Next report approx. Jun 1, 2026</footer>
 </body>
 </html>
