@@ -1,747 +1,324 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>NIL Fans — Biweekly Performance Dashboard — Report #1</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>NIL Fans — Biweekly Performance Dashboard — Report #2</title>
 <style>
-*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --brand-dark: #0a0f1e;
-  --brand-mid: #0f1f45;
-  --brand-blue: #1a3a8f;
-  --accent: #2563eb;
-  --accent-light: #3b82f6;
-  --gold: #f59e0b;
-  --gold-light: #fef3c7;
-  --green: #10b981;
-  --green-light: #d1fae5;
-  --red: #ef4444;
-  --red-light: #fee2e2;
-  --gray-50: #f9fafb;
-  --gray-100: #f3f4f6;
-  --gray-200: #e5e7eb;
-  --gray-400: #9ca3af;
-  --gray-600: #4b5563;
-  --gray-800: #1f2937;
-  --white: #ffffff;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,.08);
-  --shadow-md: 0 4px 12px rgba(0,0,0,.10);
-  --shadow-lg: 0 10px 30px rgba(0,0,0,.12);
-  --radius: 12px;
-  --radius-lg: 18px;
-}
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background: var(--gray-50);
-  color: var(--gray-800);
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* ── HEADER ── */
-.header {
-  background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand-mid) 50%, var(--brand-blue) 100%);
-  color: var(--white);
-  padding: 48px 40px 40px;
-}
-.header-inner {
-  max-width: 1440px;
-  margin: 0 auto;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 24px;
-}
-.header-left h1 { font-size: 2.4rem; font-weight: 800; letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px; }
-.header-left h1 span { color: var(--gold); }
-.period-label { font-size: 1rem; color: rgba(255,255,255,.7); font-weight: 500; }
-.header-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
-.badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 5px 14px; border-radius: 999px;
-  font-size: .75rem; font-weight: 600; letter-spacing: .4px; text-transform: uppercase;
-}
-.badge-outline  { border: 1.5px solid rgba(255,255,255,.35); color: rgba(255,255,255,.85); }
-.badge-gold     { background: var(--gold); color: var(--brand-dark); }
-.badge-blue     { background: rgba(37,99,235,.35); color: #93c5fd; border: 1.5px solid rgba(59,130,246,.4); }
-.badge-baseline { background: rgba(245,158,11,.2); color: var(--gold); border: 1.5px solid rgba(245,158,11,.4); }
-.header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
-.report-number { font-size: .8rem; color: rgba(255,255,255,.5); letter-spacing: 1px; text-transform: uppercase; }
-.confidential  { font-size: .75rem; color: rgba(255,255,255,.45); letter-spacing: .5px; text-transform: uppercase; }
-
-/* ── CADENCE BAR ── */
-.cadence-bar { background: var(--brand-mid); border-bottom: 3px solid var(--accent); }
-.cadence-bar-inner {
-  max-width: 1440px; margin: 0 auto;
-  display: grid; grid-template-columns: repeat(4, 1fr);
-}
-.cadence-block { padding: 22px 28px; border-right: 1px solid rgba(255,255,255,.08); }
-.cadence-block:last-child { border-right: none; }
-.cadence-label { font-size: .68rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: rgba(255,255,255,.45); margin-bottom: 6px; }
-.cadence-value { font-size: 1rem; font-weight: 600; color: var(--white); line-height: 1.3; }
-.cadence-value small { font-size: .78rem; font-weight: 400; color: rgba(255,255,255,.55); display: block; margin-top: 2px; }
-.cadence-note { background: rgba(245,158,11,.08); }
-.cadence-note .cadence-value { color: var(--gold); font-size: .85rem; }
-
-/* ── MAIN ── */
-.main { max-width: 1440px; margin: 0 auto; padding: 48px 40px 80px; display: flex; flex-direction: column; gap: 56px; }
-
-/* ── SECTION TITLES ── */
-.section-title {
-  font-size: 1.35rem; font-weight: 800; color: var(--brand-dark);
-  letter-spacing: -.3px; padding-bottom: 14px; margin-bottom: 28px;
-  border-bottom: 2px solid var(--gray-200);
-  display: flex; align-items: center; gap: 10px;
-}
-.section-title .icon {
-  width: 34px; height: 34px; border-radius: 8px;
-  background: var(--accent);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1rem; flex-shrink: 0;
-}
-
-/* ── AI INSIGHTS ── */
-.insights-container {
-  background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand-mid) 100%);
-  border-radius: var(--radius-lg); padding: 36px 40px;
-  box-shadow: var(--shadow-lg); color: var(--white);
-}
-.insights-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
-.insights-icon {
-  width: 42px; height: 42px;
-  background: linear-gradient(135deg, var(--accent), #7c3aed);
-  border-radius: 10px; display: flex; align-items: center; justify-content: center;
-  font-size: 1.3rem; flex-shrink: 0;
-}
-.insights-header h2 { font-size: 1.2rem; font-weight: 700; color: var(--white); }
-.insights-header p  { font-size: .8rem; color: rgba(255,255,255,.5); }
-.insights-summary {
-  font-size: 1rem; color: rgba(255,255,255,.85); line-height: 1.75;
-  margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,.1);
-}
-.insights-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-.insight-card {
-  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
-  border-radius: var(--radius); padding: 20px 22px;
-}
-.insight-card h4 { font-size: .78rem; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--accent-light); margin-bottom: 8px; }
-.insight-card p  { font-size: .88rem; color: rgba(255,255,255,.75); line-height: 1.6; }
-
-/* ── KPI CARDS ── */
-.kpi-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
-.kpi-card {
-  background: var(--white); border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md); padding: 24px 22px 20px;
-  border: 1px solid var(--gray-200);
-  display: flex; flex-direction: column; gap: 4px;
-  position: relative; overflow: hidden;
-}
-.kpi-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--accent); }
-.kpi-card.gold::before   { background: var(--gold); }
-.kpi-card.green::before  { background: var(--green); }
-.kpi-card.purple::before { background: #7c3aed; }
-.kpi-card.teal::before   { background: #0891b2; }
-.kpi-card.red::before    { background: var(--red); }
-.kpi-label  { font-size: .72rem; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--gray-400); margin-bottom: 6px; }
-.kpi-value  { font-size: 2.2rem; font-weight: 800; color: var(--brand-dark); letter-spacing: -1px; line-height: 1; margin-bottom: 6px; }
-.kpi-sub    { font-size: .78rem; color: var(--gray-600); line-height: 1.4; margin-bottom: 8px; }
-.kpi-source { font-size: .68rem; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; color: var(--gray-400); margin-bottom: 6px; }
-.kpi-delta  { font-size: .72rem; font-weight: 600; color: var(--gray-400); padding: 3px 8px; background: var(--gray-100); border-radius: 999px; display: inline-block; }
-
-/* ── FUNNEL ── */
-.funnel-wrapper {
-  display: flex; align-items: stretch;
-  border-radius: var(--radius-lg); box-shadow: var(--shadow-md); overflow: hidden;
-}
-.funnel-step {
-  flex: 1; background: var(--white);
-  border-right: 1px solid var(--gray-200);
-  padding: 28px 16px 24px;
-  text-align: center;
-  display: flex; flex-direction: column; align-items: center; gap: 6px;
-}
-.funnel-step:last-child { border-right: none; }
-.funnel-arrow {
-  display: flex; align-items: center; justify-content: center;
-  background: var(--white); border-top: 1px solid var(--gray-200); border-bottom: 1px solid var(--gray-200);
-  padding: 0 2px; flex-shrink: 0;
-  color: var(--gray-300); font-size: 1.2rem; line-height: 1;
-  margin-top: 0;
-}
-.funnel-step-num {
-  width: 28px; height: 28px; border-radius: 50%; background: var(--accent);
-  color: var(--white); font-size: .72rem; font-weight: 700;
-  display: flex; align-items: center; justify-content: center; margin-bottom: 4px;
-}
-.funnel-step-label { font-size: .68rem; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--gray-400); }
-.funnel-step-value { font-size: 2rem; font-weight: 800; color: var(--brand-dark); letter-spacing: -.5px; line-height: 1; }
-.funnel-step-sub   { font-size: .72rem; color: var(--gray-600); line-height: 1.4; }
-.funnel-step-delta { font-size: .68rem; font-weight: 600; color: var(--gray-400); padding: 2px 8px; background: var(--gray-100); border-radius: 999px; margin-top: 4px; }
-
-/* ── PERFORMANCE BREAKDOWN ── */
-.breakdown-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-.breakdown-card {
-  background: var(--white); border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md); padding: 28px 30px; border: 1px solid var(--gray-200);
-}
-.breakdown-card h3 {
-  font-size: .8rem; font-weight: 700; letter-spacing: .8px; text-transform: uppercase;
-  color: var(--gray-400); margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--gray-200);
-}
-.campaign-block {
-  margin-bottom: 16px; padding: 14px 16px; border-radius: 10px; border: 1px solid transparent;
-}
-.campaign-block.blue-bg  { background: #f0f9ff; border-color: #bae6fd; }
-.campaign-block.green-bg { background: #f0fdf4; border-color: #bbf7d0; }
-.campaign-block.gray-bg  { background: var(--gray-50); border-color: var(--gray-200); }
-.campaign-label {
-  font-size: .72rem; font-weight: 700; letter-spacing: .6px; text-transform: uppercase;
-  margin-bottom: 10px;
-}
-.campaign-label.blue-txt  { color: #0369a1; }
-.campaign-label.green-txt { color: #166534; }
-.campaign-label.gray-txt  { color: var(--gray-400); }
-.metric-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--gray-100); gap: 8px; }
-.metric-row:last-child { border-bottom: none; }
-.metric-name { font-size: .88rem; color: var(--gray-800); font-weight: 500; flex: 1; }
-.metric-val  { font-size: .95rem; font-weight: 700; color: var(--brand-dark); min-width: 48px; text-align: right; }
-.metric-badge {
-  font-size: .65rem; font-weight: 700; letter-spacing: .5px; text-transform: uppercase;
-  padding: 3px 8px; border-radius: 999px; white-space: nowrap;
-}
-.badge-baseline-sm { background: var(--gold-light); color: #92400e; }
-.badge-flat        { background: var(--gray-100); color: var(--gray-600); }
-
-/* ── PERFORMANCE INSIGHTS ── */
-.insight-list { display: flex; flex-direction: column; gap: 16px; }
-.insight-item {
-  background: var(--white); border-radius: var(--radius);
-  box-shadow: var(--shadow-sm); padding: 20px 24px;
-  border: 1px solid var(--gray-200); border-left: 4px solid var(--accent);
-  display: flex; gap: 16px; align-items: flex-start;
-}
-.insight-item.warn     { border-left-color: var(--gold); }
-.insight-item.positive { border-left-color: var(--green); }
-.insight-item.neutral  { border-left-color: var(--gray-400); }
-.insight-item.info     { border-left-color: #0891b2; }
-.insight-num {
-  width: 28px; height: 28px; border-radius: 50%; background: var(--gray-100);
-  color: var(--gray-600); font-size: .75rem; font-weight: 700;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; margin-top: 2px;
-}
-.insight-text h4 { font-size: .9rem; font-weight: 700; color: var(--brand-dark); margin-bottom: 5px; }
-.insight-text p  { font-size: .84rem; color: var(--gray-600); line-height: 1.6; }
-
-/* ── HIGH INTENT ── */
-.intent-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-.intent-card {
-  background: var(--white); border-radius: var(--radius);
-  box-shadow: var(--shadow-sm); padding: 18px 20px;
-  border: 1px solid var(--gray-200); border-top: 3px solid var(--gold);
-}
-.intent-name   { font-size: .88rem; font-weight: 700; color: var(--brand-dark); margin-bottom: 3px; }
-.intent-title  { font-size: .75rem; color: var(--gray-600); margin-bottom: 10px; line-height: 1.4; }
-.intent-signals { display: flex; flex-wrap: wrap; gap: 5px; }
-.signal-tag { font-size: .65rem; font-weight: 600; letter-spacing: .4px; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; }
-.signal-open  { background: #dbeafe; color: #1d4ed8; }
-.signal-click { background: var(--green-light); color: #065f46; }
-.signal-multi { background: var(--gold-light); color: #92400e; }
-
-/* ── OPTIMIZATION ── */
-.opt-list { display: flex; flex-direction: column; gap: 18px; }
-.opt-item {
-  background: var(--white); border-radius: var(--radius);
-  box-shadow: var(--shadow-sm); padding: 22px 26px;
-  border: 1px solid var(--gray-200);
-  display: grid; grid-template-columns: 36px 1fr; gap: 16px; align-items: start;
-}
-.opt-num {
-  width: 36px; height: 36px; border-radius: 9px;
-  background: linear-gradient(135deg, var(--accent), #7c3aed);
-  color: var(--white); font-size: .85rem; font-weight: 700;
-  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-}
-.opt-content h4 { font-size: .92rem; font-weight: 700; color: var(--brand-dark); margin-bottom: 10px; }
-.opt-chain { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: .78rem; }
-.opt-trigger { background: #ede9fe; color: #5b21b6; padding: 4px 10px; border-radius: 6px; font-weight: 600; }
-.opt-arrow   { color: var(--gray-400); font-weight: 700; }
-.opt-action  { background: #dbeafe; color: #1e40af; padding: 4px 10px; border-radius: 6px; font-weight: 600; }
-.opt-outcome { background: var(--green-light); color: #065f46; padding: 4px 10px; border-radius: 6px; font-weight: 600; }
-
-/* ── CHANGE BANNER ── */
-.change-banner {
-  background: linear-gradient(135deg, #fffbeb, #fef3c7);
-  border: 1.5px solid #fcd34d; border-radius: var(--radius-lg);
-  padding: 30px 36px; margin-bottom: 24px;
-  display: flex; gap: 18px; align-items: flex-start;
-}
-.change-banner-icon { font-size: 2rem; flex-shrink: 0; margin-top: 2px; }
-.change-banner h3  { font-size: 1rem; font-weight: 700; color: #92400e; margin-bottom: 6px; }
-.change-banner p   { font-size: .88rem; color: #78350f; line-height: 1.65; }
-
-/* ── WHAT WAS SET UP ── */
-.setup-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.setup-card {
-  background: var(--white); border-radius: var(--radius);
-  box-shadow: var(--shadow-sm); padding: 20px 22px;
-  border: 1px solid var(--gray-200); border-left: 4px solid var(--accent);
-  display: flex; align-items: center; gap: 14px;
-}
-.setup-card.gold   { border-left-color: var(--gold); }
-.setup-card.green  { border-left-color: var(--green); }
-.setup-card.purple { border-left-color: #7c3aed; }
-.setup-num  { font-size: 1.8rem; font-weight: 800; color: var(--brand-dark); line-height: 1; min-width: 48px; }
-.setup-body .setup-label { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: var(--gray-400); margin-bottom: 3px; }
-.setup-body .setup-desc  { font-size: .82rem; color: var(--gray-600); line-height: 1.4; }
-
-/* ── FOOTER ── */
-.footer {
-  background: var(--brand-dark); color: rgba(255,255,255,.4);
-  text-align: center; padding: 28px 40px;
-  font-size: .75rem; letter-spacing: .3px; line-height: 1.8;
-}
-.footer strong { color: rgba(255,255,255,.65); }
-
-/* ── RESPONSIVE ── */
-@media (max-width: 1100px) {
-  .kpi-grid    { grid-template-columns: repeat(3, 1fr); }
-  .intent-grid { grid-template-columns: repeat(2, 1fr); }
-  .setup-grid  { grid-template-columns: repeat(2, 1fr); }
-  .cadence-bar-inner { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 768px) {
-  .header { padding: 32px 20px 28px; }
-  .header-left h1 { font-size: 1.7rem; }
-  .main { padding: 32px 20px 60px; }
-  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
-  .breakdown-grid { grid-template-columns: 1fr; }
-  .insights-grid  { grid-template-columns: 1fr; }
-  .intent-grid    { grid-template-columns: 1fr; }
-  .setup-grid     { grid-template-columns: 1fr; }
-  .funnel-wrapper { flex-direction: column; }
-  .funnel-step::after { display: none; }
-  .cadence-bar-inner { grid-template-columns: 1fr; }
-  .cadence-block { border-right: none; border-bottom: 1px solid rgba(255,255,255,.08); }
-  .opt-item { grid-template-columns: 1fr; }
-  .change-banner { flex-direction: column; }
-  .header-right { align-items: flex-start; }
-}
-@media (max-width: 480px) {
-  .kpi-grid { grid-template-columns: 1fr; }
-  .header-left h1 { font-size: 1.4rem; }
-}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--brand-dark:#0a0f1e;--brand-mid:#0f1f45;--brand-blue:#1a3a8f;--accent:#2563eb;--accent-light:#3b82f6;--gold:#f59e0b;--gold-light:#fef3c7;--green:#10b981;--green-light:#d1fae5;--red:#ef4444;--red-light:#fee2e2;--gray-50:#f9fafb;--gray-100:#f3f4f6;--gray-200:#e5e7eb;--gray-400:#9ca3af;--gray-600:#4b5563;--gray-800:#1f2937;--white:#fff;--shadow-sm:0 1px 3px rgba(0,0,0,.08);--shadow-md:0 4px 12px rgba(0,0,0,.10);--shadow-lg:0 10px 30px rgba(0,0,0,.12);--radius:12px;--radius-lg:18px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;background:var(--gray-50);color:var(--gray-800);line-height:1.6;-webkit-font-smoothing:antialiased}
+.header{background:linear-gradient(135deg,var(--brand-dark) 0%,var(--brand-mid) 50%,var(--brand-blue) 100%);color:var(--white);padding:48px 40px 40px}
+.header-inner{max-width:1440px;margin:0 auto;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:24px}
+.header-left h1{font-size:2.4rem;font-weight:800;letter-spacing:-0.5px;line-height:1.15;margin-bottom:10px}
+.header-left h1 span{color:var(--gold)}
+.period-label{font-size:1rem;color:rgba(255,255,255,.7);font-weight:500}
+.header-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:999px;font-size:.75rem;font-weight:600;letter-spacing:.4px;text-transform:uppercase}
+.badge-outline{border:1.5px solid rgba(255,255,255,.35);color:rgba(255,255,255,.85)}
+.badge-gold{background:var(--gold);color:var(--brand-dark)}
+.badge-blue{background:rgba(37,99,235,.35);color:#93c5fd;border:1.5px solid rgba(59,130,246,.4)}
+.badge-baseline{background:rgba(245,158,11,.2);color:var(--gold);border:1.5px solid rgba(245,158,11,.4)}
+.header-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.report-number{font-size:.8rem;color:rgba(255,255,255,.5);letter-spacing:1px;text-transform:uppercase}
+.confidential{font-size:.75rem;color:rgba(255,255,255,.45);letter-spacing:.5px;text-transform:uppercase}
+.cadence-bar{background:var(--brand-mid);border-bottom:3px solid var(--accent)}
+.cadence-bar-inner{max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
+.cadence-block{padding:22px 28px;border-right:1px solid rgba(255,255,255,.08)}
+.cadence-block:last-child{border-right:none}
+.cadence-label{font-size:.68rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:6px}
+.cadence-value{font-size:1rem;font-weight:600;color:var(--white);line-height:1.3}
+.cadence-value small{font-size:.78rem;font-weight:400;color:rgba(255,255,255,.55);display:block;margin-top:2px}
+.cadence-note{background:rgba(245,158,11,.08)}
+.cadence-note .cadence-value{color:var(--gold);font-size:.85rem}
+.main{max-width:1440px;margin:0 auto;padding:48px 40px 80px;display:flex;flex-direction:column;gap:56px}
+.section-title{font-size:1.35rem;font-weight:800;color:var(--brand-dark);letter-spacing:-.3px;padding-bottom:14px;margin-bottom:28px;border-bottom:2px solid var(--gray-200);display:flex;align-items:center;gap:10px}
+.section-title .icon{width:34px;height:34px;border-radius:8px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.insights-container{background:linear-gradient(135deg,var(--brand-dark) 0%,var(--brand-mid) 100%);border-radius:var(--radius-lg);padding:36px 40px;box-shadow:var(--shadow-lg);color:var(--white)}
+.insights-container h3{font-size:1.1rem;font-weight:700;margin-bottom:20px}
+.insight-list{display:flex;flex-direction:column;gap:12px}
+.insight-item{display:flex;gap:12px;align-items:flex-start;font-size:.88rem;line-height:1.5}
+.insight-bullet{color:var(--gold);font-weight:700;flex-shrink:0}
+.insight-item.warn .insight-bullet{color:var(--red)}
+.insight-item.good .insight-bullet{color:var(--green)}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.kpi-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:24px;border:1px solid var(--gray-200);border-top:3px solid var(--accent)}
+.kpi-card.green{border-top-color:var(--green)}
+.kpi-card.red{border-top-color:var(--red)}
+.kpi-card.gold{border-top-color:var(--gold)}
+.kpi-label{font-size:.72rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--gray-400);margin-bottom:8px}
+.kpi-value{font-size:2rem;font-weight:800;color:var(--brand-dark);line-height:1.1}
+.kpi-sub{font-size:.75rem;color:var(--gray-600);margin-top:8px;line-height:1.5}
+.kpi-delta{font-size:.68rem;font-weight:600;padding:3px 10px;border-radius:999px;display:inline-block;margin-top:8px}
+.kpi-source{font-size:.65rem;color:var(--gray-400);margin-top:6px;font-style:italic}
+.funnel-wrapper{display:flex;align-items:flex-start;gap:0;background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-md);overflow:hidden}
+.funnel-step{flex:1;padding:24px 20px;text-align:center;background:var(--white);position:relative}
+.funnel-step:nth-child(odd){background:var(--gray-50)}
+.funnel-step-num{width:28px;height:28px;border-radius:50%;background:var(--brand-blue);color:var(--white);font-size:.75rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 10px}
+.funnel-step-label{font-size:.7rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--gray-400);margin-bottom:6px}
+.funnel-step-value{font-size:1.8rem;font-weight:800;color:var(--brand-dark)}
+.funnel-step-sub{font-size:.7rem;color:var(--gray-600);margin-top:4px;line-height:1.4}
+.funnel-step-delta{font-size:.68rem;font-weight:600;margin-top:8px}
+.funnel-arrow{display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:var(--gray-400);padding:24px 0;flex-shrink:0}
+.breakdown-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.breakdown-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:24px;border:1px solid var(--gray-200)}
+.breakdown-card h3{font-size:.95rem;font-weight:700;color:var(--brand-dark);margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid var(--gray-100)}
+.campaign-block{padding:14px 16px;border-radius:8px;margin-bottom:10px}
+.campaign-block.blue-bg{background:#eff6ff}
+.campaign-block.green-bg{background:var(--green-light)}
+.campaign-block.gray-bg{background:var(--gray-50)}
+.campaign-label{font-size:.72rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;margin-bottom:8px}
+.campaign-label.blue-txt{color:#0369a1}
+.campaign-label.green-txt{color:#166534}
+.campaign-label.gray-txt{color:var(--gray-400)}
+.metric-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--gray-100);gap:8px}
+.metric-row:last-child{border-bottom:none}
+.metric-name{font-size:.88rem;color:var(--gray-800);font-weight:500;flex:1}
+.metric-val{font-size:.95rem;font-weight:700;color:var(--brand-dark);min-width:48px;text-align:right}
+.metric-badge{font-size:.65rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:3px 8px;border-radius:999px;white-space:nowrap}
+.badge-baseline-sm{background:var(--gold-light);color:#92400e}
+.badge-flat{background:var(--gray-100);color:var(--gray-600)}
+.badge-up{background:var(--green-light);color:#065f46}
+.badge-down{background:var(--red-light);color:#991b1b}
+.comp-table{width:100%;border-collapse:collapse;font-size:.85rem}
+.comp-table th{text-align:left;padding:12px 14px;background:var(--gray-50);font-size:.7rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--gray-400);border-bottom:2px solid var(--gray-200)}
+.comp-table td{padding:14px;border-bottom:1px solid var(--gray-100)}
+.comp-table tr:last-child td{font-weight:700;background:var(--gray-50);border-top:2px solid var(--gray-200)}
+.pipeline-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.pipeline-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:20px;border:1px solid var(--gray-200);text-align:center}
+.pipeline-card.warn{border-left:3px solid var(--gold)}
+.pipeline-value{font-size:1.6rem;font-weight:800;color:var(--brand-dark)}
+.pipeline-label{font-size:.72rem;font-weight:600;color:var(--gray-400);text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
+.audit-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow-sm);border:1px solid var(--gray-200);border-left:4px solid var(--red);padding:20px 24px;margin-bottom:16px}
+.audit-card h4{font-size:.9rem;font-weight:700;color:var(--red);margin-bottom:12px}
+.audit-issue{font-size:.82rem;color:var(--gray-800);padding:6px 0;padding-left:20px;position:relative}
+.audit-issue::before{content:'✖';position:absolute;left:0;color:var(--red);font-size:.7rem;font-weight:700}
+.audit-resolved{font-size:.82rem;padding:8px 12px;background:var(--green-light);border-radius:6px;color:#065f46;font-weight:600;margin-top:12px}
+.pending-item{font-size:.84rem;padding:8px 14px;background:#fffbeb;border-left:3px solid var(--gold);border-radius:4px;margin-bottom:6px}
+.change-banner{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1.5px solid #fcd34d;border-radius:var(--radius-lg);padding:30px 36px;margin-bottom:24px;display:flex;gap:18px;align-items:flex-start}
+.change-banner-icon{font-size:2rem;flex-shrink:0;margin-top:2px}
+.change-banner h3{font-size:1rem;font-weight:700;color:#92400e;margin-bottom:6px}
+.change-banner p{font-size:.84rem;color:#a16207;line-height:1.6}
+.po-table{width:100%;border-collapse:collapse;font-size:.84rem}
+.po-table th{text-align:left;padding:10px 12px;background:var(--gray-50);font-size:.68rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--gray-400);border-bottom:2px solid var(--gray-200)}
+.po-table td{padding:10px 12px;border-bottom:1px solid var(--gray-100)}
+.footer{text-align:center;padding:32px 20px;background:var(--brand-dark);color:rgba(255,255,255,.45);font-size:.78rem;line-height:1.8}
+.footer strong{color:rgba(255,255,255,.7)}
+@media(max-width:900px){.kpi-grid{grid-template-columns:1fr 1fr}.breakdown-grid{grid-template-columns:1fr}.funnel-wrapper{flex-direction:column}.pipeline-grid{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
 
-<!-- ═══ HEADER ═══ -->
 <header class="header">
-  <div class="header-inner">
-    <div class="header-left">
-      <h1>NIL <span>Fans</span> Performance Dashboard</h1>
-      <div class="period-label">March 15 – April 20, 2026</div>
-      <div class="header-meta">
-        <span class="badge badge-gold">📊 Biweekly Report</span>
-        <span class="badge badge-baseline">⚑ Baseline Period</span>
-        <span class="badge badge-blue">Report #1</span>
-        <span class="badge badge-outline">Prepared by MercenaryMarketing.ai</span>
-      </div>
-    </div>
-    <div class="header-right">
-      <div class="report-number">Report #1 · April 20, 2026</div>
-      <div class="confidential">🔒 Confidential · Client Use Only</div>
-    </div>
-  </div>
+<div class="header-inner">
+<div class="header-left">
+<h1>NIL <span>Fans</span> — Performance Dashboard</h1>
+<p class="period-label">Report #2 • April 21 – May 19, 2026</p>
+<div class="header-meta">
+<span class="badge badge-outline">2 Sequences Active</span>
+<span class="badge badge-gold">716 Contacts in Play</span>
+<span class="badge badge-blue">2 LinkedIn Campaigns</span>
+<span class="badge badge-baseline">vs Baseline #001</span>
+</div>
+</div>
+<div class="header-right">
+<div class="report-number">Report #002</div>
+<div class="confidential">Confidential — For Client Use Only</div>
+</div>
+</div>
 </header>
 
-<!-- ═══ CADENCE BAR ═══ -->
 <div class="cadence-bar">
-  <div class="cadence-bar-inner">
-    <div class="cadence-block">
-      <div class="cadence-label">Report Cadence</div>
-      <div class="cadence-value">Biweekly<small>Every 2 weeks</small></div>
-    </div>
-    <div class="cadence-block">
-      <div class="cadence-label">Next Update</div>
-      <div class="cadence-value">~May 4, 2026<small>Report #2</small></div>
-    </div>
-    <div class="cadence-block">
-      <div class="cadence-label">Data Sources</div>
-      <div class="cadence-value">Prosp + MMai<small>LinkedIn · Email · Sequences · Lists</small></div>
-    </div>
-    <div class="cadence-block cadence-note">
-      <div class="cadence-label">Baseline Note</div>
-      <div class="cadence-value">Period-over-period comparisons begin Report #2<small>All deltas show — (Baseline) this cycle</small></div>
-    </div>
-  </div>
+<div class="cadence-bar-inner">
+<div class="cadence-block"><div class="cadence-label">Current Period</div><div class="cadence-value">4/21 – 5/19/2026</div></div>
+<div class="cadence-block"><div class="cadence-label">Previous Report</div><div class="cadence-value">#001 — 3/15 – 4/20</div></div>
+<div class="cadence-block"><div class="cadence-label">Next Report</div><div class="cadence-value">Jun 1, 2026<small>Monday • Biweekly</small></div></div>
+<div class="cadence-block cadence-note"><div class="cadence-label">Sequences Rebuilt</div><div class="cadence-value">May 19, 2026<small>Compliance Dir v3 live</small></div></div>
+</div>
 </div>
 
-<!-- ═══ MAIN ═══ -->
 <main class="main">
 
-  <!-- 01 AI INSIGHTS -->
-  <section class="section">
-    <div class="insights-container">
-      <div class="insights-header">
-        <div class="insights-icon">🤖</div>
-        <div>
-          <h2>AI Insights</h2>
-          <p>Powered by MercenaryMarketing.ai · Baseline Period Analysis</p>
-        </div>
-      </div>
-      <p class="insights-summary">
-        NIL Fans is entering the market with a well-structured two-channel outreach strategy targeting Athletic Directors and NIL/Compliance Directors across collegiate institutions. This baseline period (March 15 – April 20) establishes the performance benchmark across 372 LinkedIn connection requests via Prosp and 2,295 email executions via MMai. The Athletic Directors campaign is showing stronger volume and acceptance velocity (17.7%) while the NIL Directors campaign is demonstrating higher reply conversion among those who connect (41.7% reply rate of accepted). Email engagement is early-stage with opens and clicks confirming deliverability and initial interest — no replies yet, which is typical for a first-cycle cold outreach program. The pipeline is primed: 135 contacts are actively progressing through the primary sequence and 20 anonymous website visitors have been captured, signaling inbound pull beginning to form alongside outbound push.
-      </p>
-      <div class="insights-grid">
-        <div class="insight-card">
-          <h4>📬 Strongest Channel</h4>
-          <p>LinkedIn outreach via Prosp is generating the most direct two-way engagement. The NIL Directors campaign's 41.7% reply rate of accepted connections is a strong early signal for audience-message fit.</p>
-        </div>
-        <div class="insight-card">
-          <h4>📧 Email — Engagement Forming</h4>
-          <p>2,295 emails sent with 52 unique opens and 46 unique clicks. No replies yet — consistent with a cold first cycle. Click activity confirms interest; reply optimization is the next unlock.</p>
-        </div>
-        <div class="insight-card">
-          <h4>🎯 Audience Build Strength</h4>
-          <p>2,147+ contacts organized across 10 targeted lists. Two new Apollo-sourced lists added this period (416 + 373 contacts), signaling active audience expansion heading into May.</p>
-        </div>
-        <div class="insight-card">
-          <h4>🔥 Multi-Touch Signals</h4>
-          <p>8 high-intent email prospects identified with opens + clicks, including senior ADs and CFOs at Tulane, Ohio University, Baylor, and USF. These warrant LinkedIn follow-up or direct escalation.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+<!-- 01 AI INSIGHTS -->
+<section class="section">
+<h2 class="section-title"><span class="icon">🧠</span> AI Summary</h2>
+<div class="insights-container">
+<h3>NIL Fans rebooted its outreach engine after a 30-day gap. Two sequences rebuilt from audited lists are now live with 716 members, while LinkedIn prospecting surged +94% in requests vs. baseline (720 vs 372).</h3>
+<div class="insight-list">
+<div class="insight-item good"><span class="insight-bullet">✓</span> Both original email sequences paused and fully rebuilt after compliance &amp; ICP audit on 5/19 — removing 127+ off-ICP contacts and building a master suppression list of 219 previously-sequenced contacts</div>
+<div class="insight-item good"><span class="insight-bullet">✓</span> New combined Compliance Directors list (367 contacts) replaces original 276-member sequence — cleaner ICP fit, verified emails only</div>
+<div class="insight-item good"><span class="insight-bullet">✓</span> Athletic Directors sequence (440 members, 5.77% open rate) outperforming Compliance Directors (276 members, 3.55%) on email engagement</div>
+<div class="insight-item good"><span class="insight-bullet">✓</span> LinkedIn: 720 total requests across 2 campaigns (vs baseline 372), 119 accepted (16.5%), 13 replies — Rounds 2 AD campaign launched 5/2 already at 623 requests</div>
+<div class="insight-item warn"><span class="insight-bullet">⚠</span> 0 email replies and 0 meetings across both sequences — open/click engagement exists but no conversations converting yet</div>
+<div class="insight-item warn"><span class="insight-bullet">⚠</span> Apollo universe for Dir of Compliance audience approaching ceiling (~625 contacts)</div>
+</div>
+</div>
+</section>
 
-  <!-- 02 EXECUTIVE SUMMARY -->
-  <section class="section">
-    <h2 class="section-title"><span class="icon">📋</span> Executive Summary</h2>
-    <div class="kpi-grid">
-      <div class="kpi-card gold">
-        <div class="kpi-label">Intent Signals</div>
-        <div class="kpi-value">2,147+</div>
-        <div class="kpi-sub">Targeted contacts across 10 audience lists including Athletic Directors, NIL Coordinators, Compliance Directors, and Athlete Agencies</div>
-        <div class="kpi-source">Source: MMai Lists</div>
-        <div class="kpi-delta">— Baseline</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Contacts Added</div>
-        <div class="kpi-value">789</div>
-        <div class="kpi-sub">New contacts sourced via Apollo this period: 416 Dir. of Compliance + 373 Athletic Directors</div>
-        <div class="kpi-source">Source: MMai Lists (Apollo)</div>
-        <div class="kpi-delta">— Baseline</div>
-      </div>
-      <div class="kpi-card purple">
-        <div class="kpi-label">Outreach Sent</div>
-        <div class="kpi-value">2,667</div>
-        <div class="kpi-sub">2,295 emails via MMai + 372 LinkedIn requests via Prosp across 2 active campaigns</div>
-        <div class="kpi-source">Source: MMai + Prosp</div>
-        <div class="kpi-delta">— Baseline</div>
-      </div>
-      <div class="kpi-card green">
-        <div class="kpi-label">Conversations</div>
-        <div class="kpi-value">10</div>
-        <div class="kpi-sub">LinkedIn replies across both campaigns — 5 NIL Directors, 5 Athletic Directors</div>
-        <div class="kpi-source">Source: Prosp (LinkedIn)</div>
-        <div class="kpi-delta">— Baseline</div>
-      </div>
-      <div class="kpi-card red">
-        <div class="kpi-label">Meetings Booked</div>
-        <div class="kpi-value">0</div>
-        <div class="kpi-sub">No meetings reported this period. Tracking begins next cycle.</div>
-        <div class="kpi-source">Source: Calendly (client-reported)</div>
-        <div class="kpi-delta" style="background:#fee2e2;color:#991b1b;">⚠ Client-Reported · Not Verified in MMai</div>
-      </div>
-    </div>
-  </section>
+<!-- 02 KPI SNAPSHOT -->
+<section class="section">
+<h2 class="section-title"><span class="icon">📊</span> Key Metrics at a Glance</h2>
+<div class="kpi-grid">
+<div class="kpi-card green"><div class="kpi-label">Email Open Rate</div><div class="kpi-value">4.96%</div><div class="kpi-sub">61 unique opens from 1,231 sent</div><div class="kpi-delta" style="background:#d1fae5;color:#065f46;">+2.69pp vs baseline (2.27%)</div></div>
+<div class="kpi-card"><div class="kpi-label">Email Click Rate</div><div class="kpi-value">3.33%</div><div class="kpi-sub">41 unique clicks</div><div class="kpi-delta" style="background:#d1fae5;color:#065f46;">+1.33pp vs baseline (2.00%)</div></div>
+<div class="kpi-card gold"><div class="kpi-label">LinkedIn Requests</div><div class="kpi-value">720</div><div class="kpi-sub">119 accepted (16.5%)</div><div class="kpi-delta" style="background:#d1fae5;color:#065f46;">+348 vs baseline (372)</div></div>
+<div class="kpi-card red"><div class="kpi-label">Meetings Booked</div><div class="kpi-value">0</div><div class="kpi-sub">No meetings reported this period</div><div class="kpi-delta" style="background:#fee2e2;color:#991b1b;">Flat — 0 baseline</div></div>
+</div>
+</section>
 
-  <!-- 03 FUNNEL OVERVIEW -->
-  <section class="section">
-    <h2 class="section-title"><span class="icon">🔽</span> Funnel Overview</h2>
-    <div class="funnel-wrapper">
-      <div class="funnel-step">
-        <div class="funnel-step-num">1</div>
-        <div class="funnel-step-label">Intent</div>
-        <div class="funnel-step-value">2,147</div>
-        <div class="funnel-step-sub">Targeted contacts across 10 lists</div>
-        <div class="funnel-step-delta">— Baseline</div>
-      </div>
-      <div class="funnel-arrow">›</div>
-      <div class="funnel-step">
-        <div class="funnel-step-num">2</div>
-        <div class="funnel-step-label">Outreach</div>
-        <div class="funnel-step-value">2,667</div>
-        <div class="funnel-step-sub">2,295 emails · 372 LinkedIn requests</div>
-        <div class="funnel-step-delta">— Baseline</div>
-      </div>
-      <div class="funnel-arrow">›</div>
-      <div class="funnel-step">
-        <div class="funnel-step-num">3</div>
-        <div class="funnel-step-label">Engagement</div>
-        <div class="funnel-step-value">162</div>
-        <div class="funnel-step-sub">52 opens · 46 clicks · 64 LI accepts</div>
-        <div class="funnel-step-delta">— Baseline</div>
-      </div>
-      <div class="funnel-arrow">›</div>
-      <div class="funnel-step">
-        <div class="funnel-step-num">4</div>
-        <div class="funnel-step-label">Conversations</div>
-        <div class="funnel-step-value">10</div>
-        <div class="funnel-step-sub">LinkedIn replies · 0 email replies</div>
-        <div class="funnel-step-delta">— Baseline</div>
-      </div>
-      <div class="funnel-arrow">›</div>
-      <div class="funnel-step">
-        <div class="funnel-step-num">5</div>
-        <div class="funnel-step-label">Meetings</div>
-        <div class="funnel-step-value">0</div>
-        <div class="funnel-step-sub">Client-reported via Calendly</div>
-        <div class="funnel-step-delta">— Baseline</div>
-      </div>
-    </div>
-  </section>
+<!-- 03 FUNNEL -->
+<section class="section">
+<h2 class="section-title"><span class="icon">🔽</span> Funnel Overview</h2>
+<div class="funnel-wrapper">
+<div class="funnel-step"><div class="funnel-step-num">1</div><div class="funnel-step-label">Intent</div><div class="funnel-step-value">2,147</div><div class="funnel-step-sub">Baseline signal pool</div><div class="funnel-step-delta" style="color:var(--gray-400);">— Baseline</div></div>
+<div class="funnel-arrow">›</div>
+<div class="funnel-step"><div class="funnel-step-num">2</div><div class="funnel-step-label">Outreach</div><div class="funnel-step-value">1,951</div><div class="funnel-step-sub">1,231 emails + 720 LI requests</div><div class="funnel-step-delta" style="color:#ef4444;">−54% vs baseline (2,667)</div></div>
+<div class="funnel-arrow">›</div>
+<div class="funnel-step"><div class="funnel-step-num">3</div><div class="funnel-step-label">Engagement</div><div class="funnel-step-value">221</div><div class="funnel-step-sub">61 opens + 41 clicks + 119 LI accepts</div><div class="funnel-step-delta" style="color:#10b981;">+36% vs baseline (162)</div></div>
+<div class="funnel-arrow">›</div>
+<div class="funnel-step"><div class="funnel-step-num">4</div><div class="funnel-step-label">Conversations</div><div class="funnel-step-value">13</div><div class="funnel-step-sub">13 LinkedIn replies • 0 email replies</div><div class="funnel-step-delta" style="color:#10b981;">+3 vs baseline (10)</div></div>
+<div class="funnel-arrow">›</div>
+<div class="funnel-step"><div class="funnel-step-num">5</div><div class="funnel-step-label">Meetings</div><div class="funnel-step-value">0</div><div class="funnel-step-sub">No conversions yet</div><div class="funnel-step-delta" style="color:var(--gray-400);">— Flat</div></div>
+</div>
+</section>
 
-  <!-- 04 PERFORMANCE BREAKDOWN -->
-  <section class="section">
-    <h2 class="section-title"><span class="icon">📈</span> Performance Breakdown</h2>
-    <div class="breakdown-grid">
+<!-- 04 EMAIL BREAKDOWN -->
+<section class="section">
+<h2 class="section-title"><span class="icon">📧</span> Email Performance — by Sequence</h2>
+<div class="breakdown-grid">
+<div class="breakdown-card">
+<h3>🏃 Athletic Directors (Shanon Gray)</h3>
+<div class="campaign-block green-bg"><div class="campaign-label green-txt">Active • 440 members</div>
+<div class="metric-row"><span class="metric-name">Total Sent</span><span class="metric-val">780</span></div>
+<div class="metric-row"><span class="metric-name">Unique Opens</span><span class="metric-val">45</span><span class="metric-badge badge-up">5.77%</span></div>
+<div class="metric-row"><span class="metric-name">Unique Clicks</span><span class="metric-val">18</span><span class="metric-badge badge-up">2.31%</span></div>
+<div class="metric-row"><span class="metric-name">Replies</span><span class="metric-val">0</span></div>
+<div class="metric-row"><span class="metric-name">Bounces</span><span class="metric-val">17</span><span class="metric-badge badge-down">2.18%</span></div>
+<div class="metric-row"><span class="metric-name">Out of Office</span><span class="metric-val">3</span><span class="metric-badge badge-flat">0.38%</span></div>
+</div>
+</div>
+<div class="breakdown-card">
+<h3>💼 NIL Directors &amp; Compliance (Anna v2)</h3>
+<div class="campaign-block blue-bg"><div class="campaign-label blue-txt">Active • 276 members • Rebuilt 5/19</div>
+<div class="metric-row"><span class="metric-name">Total Sent</span><span class="metric-val">451</span></div>
+<div class="metric-row"><span class="metric-name">Unique Opens</span><span class="metric-val">16</span><span class="metric-badge badge-baseline-sm">3.55%</span></div>
+<div class="metric-row"><span class="metric-name">Unique Clicks</span><span class="metric-val">23</span><span class="metric-badge badge-up">5.10%</span></div>
+<div class="metric-row"><span class="metric-name">Replies</span><span class="metric-val">0</span></div>
+<div class="metric-row"><span class="metric-name">Bounces</span><span class="metric-val">4</span><span class="metric-badge badge-up">0.89%</span></div>
+<div class="metric-row"><span class="metric-name">Out of Office</span><span class="metric-val">0</span></div>
+</div>
+</div>
+</div>
 
-      <div class="breakdown-card">
-        <h3>🔗 LinkedIn Outreach — Prosp</h3>
-        <div class="campaign-block blue-bg">
-          <div class="campaign-label blue-txt">Campaign 1 — NIL Directors &amp; Compliance</div>
-          <div class="metric-row"><span class="metric-name">Requests Sent</span><span class="metric-val">79</span><span class="metric-badge badge-baseline-sm">Baseline</span></div>
-          <div class="metric-row"><span class="metric-name">Accepted</span><span class="metric-val">12</span><span class="metric-badge badge-baseline-sm">15.2%</span></div>
-          <div class="metric-row"><span class="metric-name">Replies</span><span class="metric-val">5</span><span class="metric-badge badge-baseline-sm">41.7% of accepted</span></div>
-        </div>
-        <div class="campaign-block green-bg">
-          <div class="campaign-label green-txt">Campaign 2 — Athletic Directors</div>
-          <div class="metric-row"><span class="metric-name">Requests Sent</span><span class="metric-val">293</span><span class="metric-badge badge-baseline-sm">Baseline</span></div>
-          <div class="metric-row"><span class="metric-name">Accepted</span><span class="metric-val">52</span><span class="metric-badge badge-baseline-sm">17.7%</span></div>
-          <div class="metric-row"><span class="metric-name">Replies</span><span class="metric-val">5</span><span class="metric-badge badge-baseline-sm">9.6% of accepted</span></div>
-        </div>
-        <div class="campaign-block gray-bg">
-          <div class="campaign-label gray-txt">Combined Totals</div>
-          <div class="metric-row"><span class="metric-name">Total Requests</span><span class="metric-val">372</span><span class="metric-badge badge-flat">—</span></div>
-          <div class="metric-row"><span class="metric-name">Total Accepted</span><span class="metric-val">64</span><span class="metric-badge badge-flat">17.2%</span></div>
-          <div class="metric-row"><span class="metric-name">Total Replies</span><span class="metric-val">10</span><span class="metric-badge badge-flat">15.6% of accepted</span></div>
-        </div>
-      </div>
+<!-- Email PoP Table -->
+<h3 style="font-size:1rem;font-weight:700;color:var(--brand-dark);margin:32px 0 16px;">Period-over-Period: Email</h3>
+<table class="po-table">
+<thead><tr><th>Metric</th><th>Baseline (3/15–4/20)</th><th>Current (4/21–5/19)</th><th>Delta</th><th>% Change</th></tr></thead>
+<tbody>
+<tr><td><strong>Outreach Sent</strong></td><td>2,667</td><td>1,231</td><td style="color:#ef4444;">-1,436</td><td style="color:#ef4444;">-53.9%</td></tr>
+<tr><td><strong>Unique Opens</strong></td><td>52</td><td>61</td><td style="color:#10b981;">+9</td><td style="color:#10b981;">+17.3%</td></tr>
+<tr><td><strong>Open Rate</strong></td><td>2.27%</td><td>4.96%</td><td style="color:#10b981;">+2.69pp</td><td style="color:#10b981;">+118.5%</td></tr>
+<tr><td><strong>Unique Clicks</strong></td><td>46</td><td>41</td><td style="color:#ef4444;">-5</td><td style="color:#ef4444;">-10.9%</td></tr>
+<tr><td><strong>Click Rate</strong></td><td>2.00%</td><td>3.33%</td><td style="color:#10b981;">+1.33pp</td><td style="color:#10b981;">+66.5%</td></tr>
+<tr><td><strong>Replies</strong></td><td>10</td><td>0</td><td style="color:#ef4444;">-10</td><td style="color:#ef4444;">-100%</td></tr>
+<tr><td><strong>Bounces</strong></td><td>24</td><td>21</td><td style="color:#10b981;">-3</td><td style="color:#10b981;">-12.5%</td></tr>
+<tr><td><strong>Bounce Rate</strong></td><td>1.05%</td><td>1.71%</td><td style="color:#ef4444;">+0.66pp</td><td style="color:#ef4444;">+62.9%</td></tr>
+<tr><td><strong>OOO</strong></td><td>1</td><td>3</td><td style="color:#ef4444;">+2</td><td style="color:#ef4444;">+200%</td></tr>
+</tbody></table>
+</section>
 
-      <div class="breakdown-card">
-        <h3>📧 Email Outreach — MMai Sequences</h3>
-        <div class="metric-row"><span class="metric-name">Total Emails Sent</span><span class="metric-val">2,295</span><span class="metric-badge badge-baseline-sm">Baseline</span></div>
-        <div class="metric-row"><span class="metric-name">Unique Opens</span><span class="metric-val">52</span><span class="metric-badge badge-flat">2.27%</span></div>
-        <div class="metric-row"><span class="metric-name">Unique Clicks</span><span class="metric-val">46</span><span class="metric-badge badge-flat">2.0%</span></div>
-        <div class="metric-row"><span class="metric-name">Unique Replies</span><span class="metric-val">0</span><span class="metric-badge badge-flat">0%</span></div>
-        <div class="metric-row"><span class="metric-name">Bounces</span><span class="metric-val">24</span><span class="metric-badge badge-flat">1.05%</span></div>
-        <div class="metric-row"><span class="metric-name">Out of Office</span><span class="metric-val">1</span><span class="metric-badge badge-flat">0.04%</span></div>
-        <div class="metric-row"><span class="metric-name">Active Sequences</span><span class="metric-val">2 of 8</span><span class="metric-badge badge-flat">—</span></div>
-        <div class="metric-row"><span class="metric-name">In-Progress Members</span><span class="metric-val">135</span><span class="metric-badge badge-flat">Active</span></div>
-        <div class="metric-row"><span class="metric-name">Completed Members</span><span class="metric-val">23</span><span class="metric-badge badge-flat">Full sequence</span></div>
-        <div style="margin-top:16px;padding:12px 14px;background:#fefce8;border-radius:8px;border:1px solid #fde68a;">
-          <div style="font-size:.78rem;color:#92400e;line-height:1.55;">
-            <strong>📌 Anonymous Website Visitors:</strong> 20 visitors captured in MMai intent list. Identity enrichment not yet activated — these represent early inbound interest from outreach activity.
-          </div>
-        </div>
-      </div>
+<!-- 05 LINKEDIN BREAKDOWN -->
+<section class="section">
+<h2 class="section-title"><span class="icon">🔗</span> LinkedIn Prospecting — by Campaign</h2>
+<div class="breakdown-grid">
+<div class="breakdown-card">
+<h3>💼 NIL Directors &amp; Compliance (Shanon Gray)</h3>
+<div class="campaign-block blue-bg"><div class="campaign-label blue-txt">Launched 4/2/2026</div>
+<div class="metric-row"><span class="metric-name">Requests Sent</span><span class="metric-val">97</span></div>
+<div class="metric-row"><span class="metric-name">Accepted</span><span class="metric-val">24</span><span class="metric-badge badge-up">24.7%</span></div>
+<div class="metric-row"><span class="metric-name">Conversations</span><span class="metric-val">24</span></div>
+<div class="metric-row"><span class="metric-name">Replies</span><span class="metric-val">4</span><span class="metric-badge badge-up">14.3%</span></div>
+</div>
+</div>
+<div class="breakdown-card">
+<h3>🏃 Rounds 2 — Athletic Directors (Shanon Gray)</h3>
+<div class="campaign-block green-bg"><div class="campaign-label green-txt">Launched 5/2/2026</div>
+<div class="metric-row"><span class="metric-name">Requests Sent</span><span class="metric-val">623</span></div>
+<div class="metric-row"><span class="metric-name">Accepted</span><span class="metric-val">95</span><span class="metric-badge badge-up">15.2%</span></div>
+<div class="metric-row"><span class="metric-name">Conversations</span><span class="metric-val">94</span></div>
+<div class="metric-row"><span class="metric-name">Replies</span><span class="metric-val">9</span><span class="metric-badge badge-up">9.3%</span></div>
+</div>
+</div>
+</div>
 
-    </div>
-  </section>
+<!-- LI PoP Table -->
+<h3 style="font-size:1rem;font-weight:700;color:var(--brand-dark);margin:32px 0 16px;">Period-over-Period: LinkedIn</h3>
+<table class="po-table">
+<thead><tr><th>Metric</th><th>Baseline (3/15–4/20)</th><th>Current (4/21–5/19)</th><th>Delta</th><th>% Change</th></tr></thead>
+<tbody>
+<tr><td><strong>Requests</strong></td><td>372</td><td>720</td><td style="color:#10b981;">+348</td><td style="color:#10b981;">+93.5%</td></tr>
+<tr><td><strong>Accepted</strong></td><td>64</td><td>119</td><td style="color:#10b981;">+55</td><td style="color:#10b981;">+85.9%</td></tr>
+<tr><td><strong>Accept Rate</strong></td><td>17.2%</td><td>16.5%</td><td style="color:#ef4444;">-0.7pp</td><td style="color:#ef4444;">-4.1%</td></tr>
+<tr><td><strong>Replies</strong></td><td>10</td><td>13</td><td style="color:#10b981;">+3</td><td style="color:#10b981;">+30.0%</td></tr>
+</tbody></table>
+</section>
 
-  <!-- 05 PERFORMANCE INSIGHTS -->
-  <section class="section">
-    <h2 class="section-title"><span class="icon">💡</span> Performance Insights</h2>
-    <div class="insight-list">
-      <div class="insight-item positive">
-        <div class="insight-num">1</div>
-        <div class="insight-text">
-          <h4>NIL Directors Campaign Has Exceptional Reply Conversion</h4>
-          <p>With 5 replies from just 12 accepted connections, Campaign 1 is converting at 41.7% — well above industry benchmarks for cold LinkedIn outreach (typically 10–20%). The messaging is clearly resonating with this ICP. This campaign warrants increased volume in the next cycle.</p>
-        </div>
-      </div>
-      <div class="insight-item positive">
-        <div class="insight-num">2</div>
-        <div class="insight-text">
-          <h4>Athletic Directors Campaign Driving Volume at Strong Acceptance Rate</h4>
-          <p>293 requests sent with 17.7% acceptance is healthy for a senior-level cold audience. The 9.6% reply rate of accepted connections is solid but leaves room to improve with stronger follow-up messaging or CTA refinement post-connect.</p>
-        </div>
-      </div>
-      <div class="insight-item warn">
-        <div class="insight-num">3</div>
-        <div class="insight-text">
-          <h4>Email Click-to-Reply Gap Needs Attention</h4>
-          <p>46 unique clicks with 0 replies indicates prospects are engaging with content but not converting to a reply. This points to a CTA or post-click friction issue — the experience after the click may not be converting curiosity into action.</p>
-        </div>
-      </div>
-      <div class="insight-item info">
-        <div class="insight-num">4</div>
-        <div class="insight-text">
-          <h4>Inbound Signal Emerging — Anonymous Visitors Captured</h4>
-          <p>20 anonymous website visitors identified in the MMai intent list. Identity enrichment hasn't been activated yet, but this confirms outbound activity is generating inbound curiosity. Activating enrichment could surface warm leads already in the funnel.</p>
-        </div>
-      </div>
-      <div class="insight-item neutral">
-        <div class="insight-num">5</div>
-        <div class="insight-text">
-          <h4>Large Audience Inventory Ready for Activation</h4>
-          <p>6 of 8 sequences are currently inactive, with 2,147+ contacts across 10 lists. Two new Apollo lists (789 contacts total) were added this period and are ready to be sequenced. Activating additional sequences next cycle could significantly increase pipeline velocity.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+<!-- 06 PIPELINE -->
+<section class="section">
+<h2 class="section-title"><span class="icon">🛠</span> Contact Pipeline</h2>
+<div class="pipeline-grid">
+<div class="pipeline-card"><div class="pipeline-value">2,147</div><div class="pipeline-label">Intent Signals</div></div>
+<div class="pipeline-card"><div class="pipeline-value">716</div><div class="pipeline-label">In Sequences</div></div>
+<div class="pipeline-card warn"><div class="pipeline-value">~625</div><div class="pipeline-label">Apollo Universe Est.</div></div>
+<div class="pipeline-card"><div class="pipeline-value">219</div><div class="pipeline-label">Suppression List</div></div>
+</div>
+</section>
 
-  <!-- 06 HIGH-INTENT ACTIVITY SIGNALS -->
-  <section class="section">
-    <h2 class="section-title"><span class="icon">🔥</span> High-Intent Activity Signals</h2>
-    <p style="font-size:.88rem;color:var(--gray-600);margin-bottom:24px;line-height:1.6;">The following prospects demonstrated above-average engagement with email outreach this period — opening and clicking within the NIL Directors &amp; Compliance sequence. These are strong candidates for LinkedIn connection requests or direct follow-up escalation.</p>
-    <div class="intent-grid">
-      <div class="intent-card">
-        <div class="intent-name">Jennifer Carron</div>
-        <div class="intent-title">Asst. AD NIL &amp; Brand Strategy<br>University at Albany</div>
-        <div class="intent-signals"><span class="signal-tag signal-open">Opened</span><span class="signal-tag signal-click">Clicked</span></div>
-      </div>
-      <div class="intent-card">
-        <div class="intent-name">Scott Mitchell</div>
-        <div class="intent-title">Sr. Assoc. AD / CFO<br>Tulane University</div>
-        <div class="intent-signals"><span class="signal-tag signal-open">Opened</span><span class="signal-tag signal-click">Clicked</span></div>
-      </div>
-      <div class="intent-card">
-        <div class="intent-name">Candace Smith</div>
-        <div class="intent-title">Exec. Assoc. AD / CFO<br>Ohio University</div>
-        <div class="intent-signals"><span class="signal-tag signal-open">Opened</span><span class="signal-tag signal-click">Clicked</span></div>
-      </div>
-      <div class="intent-card">
-        <div class="intent-name">Mark Scally</div>
-        <div class="intent-title">Deputy AD / CFO<br>SIU Carbondale</div>
-        <div class="intent-signals"><span class="signal-tag signal-open">Opened</span><span class="signal-tag signal-click">Clicked</span></div>
-      </div>
-      <div class="intent-card">
-        <div class="intent-name">Caroline Kane</div>
-        <div class="intent-title">Sr. Assoc. AD / CFO<br>Florida Atlantic University</div>
-        <div class="intent-signals"><span class="signal-tag signal-open">Opened</span><span class="signal-tag signal-click">Clicked</span><span class="signal-tag signal-multi">2x Click</span></div>
-      </div>
-      <div class="intent-card">
-        <div class="intent-name">Kris Pierce</div>
-        <div class="intent-title">Deputy AD / COO<br>University of South Florida</div>
-        <div class="intent-signals"><span class="signal-tag signal-open">Opened</span><span class="signal-tag signal-click">Clicked</span></div>
-      </div>
-      <div class="intent-card">
-        <div class="intent-name">Jovan Overshown</div>
-        <div class="intent-title">Deputy AD / CRO<br>Baylor University</div>
-        <div class="intent-signals"><span class="signal-tag signal-open">Opened</span><span class="signal-tag signal-click">Clicked</span></div>
-      </div>
-      <div class="intent-card">
-        <div class="intent-name">Chuck Goldstein</div>
-        <div class="intent-title">Asst. AD Compliance / Head Football Coach<br>Gallaudet University</div>
-        <div class="intent-signals"><span class="signal-tag signal-open">Opened</span><span class="signal-tag signal-multi">3x Open</span></div>
-      </div>
-    </div>
-  </section>
+<!-- 07 SEQUENCE AUDIT -->
+<section class="section">
+<h2 class="section-title"><span class="icon">🔍</span> Sequence Audit — May 19, 2026</h2>
+<div class="audit-card">
+<h4>✖ Compliance Directors Sequence (Anna v2) — Rebuilt</h4>
+<div class="audit-issue">222 of 416 contacts (53%) failed to load — stuck errors</div>
+<div class="audit-issue">127 off-ICP contacts: 96 CFO/COO/CRO athletic finance, 16 Title IX-only, 5 ADA/504, 5 Financial Aid, 3 Research Compliance</div>
+<div class="audit-issue">25 contacts with no verified email</div>
+<div class="audit-issue">No suppression list — previously sequenced contacts had no exclusion mechanism</div>
+<div class="audit-issue">Platform unable to export sequence members (manual screenshot extraction required)</div>
+<div class="audit-resolved">✓ REBUILT as v3 — 367 contacts, verified emails only, suppression list (219) applied via NILFans_Suppression_Master</div>
+</div>
+<h3 style="font-size:.95rem;font-weight:700;color:var(--brand-dark);margin:20px 0 12px;">⏳ Pending Actions</h3>
+<div class="pending-item">🔄 Shanon Gray’s Athletic Directors sequence needs same suppression audit</div>
+<div class="pending-item">🎯 Build Division II &amp; III Athlete Activation sequence or retire the placeholder</div>
+<div class="pending-item">📊 Monitor new Compliance Directors v3 for deliverability vs original 53% load failure rate</div>
+</section>
 
-  <!-- 07 WHAT WE ARE WORKING ON -->
-  <section class="section">
-    <h2 class="section-title"><span class="icon">⚙️</span> What We Are Working On to Improve Performance</h2>
-    <div class="opt-list">
-      <div class="opt-item">
-        <div class="opt-num">1</div>
-        <div class="opt-content">
-          <h4>Close the Email Click-to-Reply Gap with a Stronger CTA</h4>
-          <div class="opt-chain">
-            <span class="opt-trigger">Trigger: 46 clicks, 0 replies</span>
-            <span class="opt-arrow">→</span>
-            <span class="opt-action">Re-write Step 2 email CTA — replace passive link with a direct question or low-friction calendar ask</span>
-            <span class="opt-arrow">→</span>
-            <span class="opt-outcome">Expected: 5–10% reply rate on email by Report #3</span>
-          </div>
-        </div>
-      </div>
-      <div class="opt-item">
-        <div class="opt-num">2</div>
-        <div class="opt-content">
-          <h4>Scale NIL Directors Campaign — The Message Is Working</h4>
-          <div class="opt-chain">
-            <span class="opt-trigger">Trigger: 41.7% reply rate on accepted connections</span>
-            <span class="opt-arrow">→</span>
-            <span class="opt-action">Increase Prosp request volume for Campaign 1 from 79 → 150+ using new Apollo list (416 contacts)</span>
-            <span class="opt-arrow">→</span>
-            <span class="opt-outcome">Expected: 10+ additional replies, 1–2 demos booked</span>
-          </div>
-        </div>
-      </div>
-      <div class="opt-item">
-        <div class="opt-num">3</div>
-        <div class="opt-content">
-          <h4>Activate Identity Enrichment on Anonymous Website Visitor List</h4>
-          <div class="opt-chain">
-            <span class="opt-trigger">Trigger: 20 anonymous visitors captured in MMai</span>
-            <span class="opt-arrow">→</span>
-            <span class="opt-action">Enable enrichment on Anonymous Website Visitors list to identify company and role — add matched contacts to MMai sequence</span>
-            <span class="opt-arrow">→</span>
-            <span class="opt-outcome">Expected: Surface 5–10 warm inbound leads already showing intent</span>
-          </div>
-        </div>
-      </div>
-      <div class="opt-item">
-        <div class="opt-num">4</div>
-        <div class="opt-content">
-          <h4>Activate Additional Sequences from Existing Audience Inventory</h4>
-          <div class="opt-chain">
-            <span class="opt-trigger">Trigger: 6 of 8 sequences inactive, 789 new contacts ready</span>
-            <span class="opt-arrow">→</span>
-            <span class="opt-action">Launch email sequences for both new Apollo lists — target Step 1 delivery within 5 business days</span>
-            <span class="opt-arrow">→</span>
-            <span class="opt-outcome">Expected: +500 outreach touches added to pipeline by Report #2</span>
-          </div>
-        </div>
-      </div>
-      <div class="opt-item">
-        <div class="opt-num">5</div>
-        <div class="opt-content">
-          <h4>Add LinkedIn Follow-Up for High-Intent Email Clickers</h4>
-          <div class="opt-chain">
-            <span class="opt-trigger">Trigger: 8 identified high-intent email engagers (open + click)</span>
-            <span class="opt-arrow">→</span>
-            <span class="opt-action">Cross-reference high-intent list against LinkedIn — send personalized connection requests referencing email topic</span>
-            <span class="opt-arrow">→</span>
-            <span class="opt-outcome">Expected: Multi-touch acceleration — increase demo conversion likelihood for warm prospects</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 08 WHAT CHANGED -->
-  <section class="section">
-    <h2 class="section-title"><span class="icon">📝</span> What Changed Since the Last Update</h2>
-    <div class="change-banner">
-      <div class="change-banner-icon">⚑</div>
-      <div>
-        <h3>This is the Baseline Report — Report #1</h3>
-        <p>This report establishes the performance benchmark for all future period-over-period comparisons. No prior period exists to compare against. Starting with Report #2 (approx. May 4, 2026), every metric will include a delta showing improvement, decline, or flat performance versus this baseline. All values marked "— Baseline" in this report will become the reference point for trend analysis going forward.</p>
-      </div>
-    </div>
-    <div class="breakdown-card">
-      <h3>📌 What Was Set Up &amp; Launched This Period</h3>
-      <div class="metric-row"><span class="metric-name">Active Sequences Launched</span><span class="metric-val">2</span><span class="metric-badge badge-baseline-sm">New</span></div>
-      <div class="metric-row"><span class="metric-name">Prosp Campaigns Running</span><span class="metric-val">2</span><span class="metric-badge badge-baseline-sm">New</span></div>
-      <div class="metric-row"><span class="metric-name">New Apollo Lists Imported</span><span class="metric-val">2</span><span class="metric-badge badge-baseline-sm">789 contacts</span></div>
-      <div class="metric-row"><span class="metric-name">Anonymous Visitor Tracking</span><span class="metric-val">Active</span><span class="metric-badge badge-baseline-sm">20 captured</span></div>
-      <div class="metric-row"><span class="metric-name">LinkedIn Outreach Initiated</span><span class="metric-val">372 requests</span><span class="metric-badge badge-baseline-sm">New</span></div>
-      <div class="metric-row"><span class="metric-name">Email Outreach Initiated</span><span class="metric-val">2,295 sent</span><span class="metric-badge badge-baseline-sm">New</span></div>
-    </div>
-  </section>
+<!-- 08 WHAT CHANGED -->
+<section class="section">
+<h2 class="section-title"><span class="icon">📝</span> What Changed Since Report #1</h2>
+<div class="change-banner">
+<div class="change-banner-icon">⚡</div>
+<div>
+<h3>Major Infrastructure Rebuild — Report #2</h3>
+<p>This period was transformative: both original email sequences were audited, found to have significant ICP and deliverability issues, and fully rebuilt. LinkedIn prospecting was launched at scale with a new Rounds 2 campaign driving 623 requests. The net result is a cleaner, more targeted outreach engine — though still in early stages with 0 email replies and 0 meetings this period.</p>
+</div>
+</div>
+<div class="breakdown-card">
+<h3>📌 What Was Set Up &amp; Changed This Period</h3>
+<div class="metric-row"><span class="metric-name">Email Sequences Rebuilt</span><span class="metric-val">1</span><span class="metric-badge badge-baseline-sm">v2 → v3</span></div>
+<div class="metric-row"><span class="metric-name">Suppression List Built</span><span class="metric-val">219</span><span class="metric-badge badge-baseline-sm">Apollo</span></div>
+<div class="metric-row"><span class="metric-name">New LinkedIn Campaign</span><span class="metric-val">1</span><span class="metric-badge badge-up">5/2 launch</span></div>
+<div class="metric-row"><span class="metric-name">Off-ICP Contacts Removed</span><span class="metric-val">127+</span><span class="metric-badge badge-down">Cleaned</span></div>
+<div class="metric-row"><span class="metric-name">LinkedIn Requests This Period</span><span class="metric-val">720</span><span class="metric-badge badge-up">+93.5%</span></div>
+<div class="metric-row"><span class="metric-name">Email Open Rate Improvement</span><span class="metric-val">4.96%</span><span class="metric-badge badge-up">+118%</span></div>
+</div>
+</section>
 
 </main>
 
-<!-- ═══ FOOTER ═══ -->
 <footer class="footer">
-  <strong>NIL Fans Performance Dashboard — Report #1 · Baseline Period</strong><br>
-  March 15 – April 20, 2026 · Prepared by MercenaryMarketing.ai<br>
-  🔒 Confidential — For Client Use Only · Next report approx. May 4, 2026
+<strong>NIL Fans Performance Dashboard — Report #2 • April 21 – May 19, 2026</strong><br>
+Prepared by MercenaryMarketing.ai • Next report: Monday, June 1, 2026<br>
+🔒 Confidential — For Client Use Only
 </footer>
 
 </body>
